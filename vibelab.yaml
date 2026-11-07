@@ -1,0 +1,46 @@
+app:
+  id: "7704536495876636691"
+  name: "青玉棋会"
+  slogan: "在环绕棋盘上招募英雄、搭配羁绊，赢下四人棋会"
+  description: |
+    青玉棋会是一款面向 PICO 头显的单人自走棋试玩游戏。你将与三名 AI 棋手同场经营阵容，在环绕式四人棋盘上经历招募、布阵和自动战斗。每轮准备时选择英雄、安排前后排，再观察英雄交锋与技能效果；对局逐步淘汰棋手，最后决出冠军。完整对局通常约十分钟，也可以在准备阶段提前确认开始战斗。
+
+    - 十二名英雄：不同阵营和职业组成多种阵容，三个同名同星英雄自动合成，最高三星。
+    - 羁绊搭配：八种羁绊按上场的不同英雄激活，面板显示人数、门槛和效果。
+    - 经营决策：每轮基础五金币，胜利奖励先到账，再按余额计算利息；升级人口时可以查看经验进度。
+    - 空间布阵：使用手柄射线或眼手交互招募和拖动棋子，在八乘八棋盘上调整站位。
+    - 自动战斗：近战绕行、远程攻击与治疗技能配合刀光、箭线和护盾效果，实时显示生命排名与胜负结算。
+
+    打开应用后选择“开始棋会”，通过前下方商店购买英雄并布阵，点击“准备完毕”进入战斗。适合希望在空间棋盘中体验阵容搭配和轻量策略的玩家。当前为 V1.4 试玩版本，后续将继续完善美术、交互和对局体验。
+  tags: [ "策略解谜" ]
+  category: "game"
+  icon: "assets/icon.jpg"
+  landscape: "assets/landscape.png"
+  detail_images:
+    - "assets/detail-1.png"
+    - "assets/detail-2.png"
+    - "assets/detail-3.png"
+    - "assets/detail-4.png"
+    - "assets/detail-5.png"
+  videos:
+    - file: "assets/demo.mp4"
+      cover: "assets/demo-cover.png"
+version:
+  name: "V1.4.0"
+  notes: |
+    首次发布青玉棋会试玩版，提供一名玩家与三名 AI 的本地四人棋会、八乘八棋盘及十二名英雄。
+    改善底部商店的多行提示，增加经验进度、升级差额、羁绊和实时排名。
+    调整经济结算：每轮基础五金，胜利奖励先到账，失败照常按余额领取利息。
+    失败按回合基础与敌方存活人口立即扣血，显示分项计算。
+    使用金色五角星表现升星，并补充石纹铺地、植被和木构庭院。
+build:
+  repo_url: "https://github.com/hyd1059320441-bot/mini-auto-chess"
+  repo_visibility: "private"
+  tech_stack: "android_spatial"
+  ai_tool: "Trae"
+  ai_model: "GPT-6"
+  features:
+    - controller_support
+    - hand_tracking
+    - eye_tracking
+  teammates: []
