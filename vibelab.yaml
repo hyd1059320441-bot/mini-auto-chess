@@ -36,7 +36,7 @@ version:
     修复重开复用随机种子，调整 AI 分步经营时机；三人阶段使用镜像对局，长时间战斗自动加速。
 build:
   repo_url: "https://github.com/hyd1059320441-bot/mini-auto-chess"
-  repo_visibility: "private"
+  repo_visibility: "public"
   tech_stack: "android_spatial"
   ai_tool: "Trae"
   ai_model: "GPT-6"
