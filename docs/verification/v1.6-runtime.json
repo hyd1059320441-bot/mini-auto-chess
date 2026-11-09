@@ -1,0 +1,24 @@
+{
+  "version": "V1.6.0",
+  "device": "PB331XPGL6040019G",
+  "pid": 27150,
+  "scene_ready": true,
+  "decoded_short_clips": 20,
+  "music_started": true,
+  "pavilion_contact_checks": 18,
+  "pavilion_gap": 0.0,
+  "board_surface_y": [
+    0.265,
+    0.265,
+    0.265,
+    0.265
+  ],
+  "hud_geometry": "PASS",
+  "application_fatal_in_collected_startup": false,
+  "visual": "UNOBSERVED",
+  "fps": "UNMEASURED",
+  "sdk": "6.1.9",
+  "source_gate_advisories_reviewed": 2,
+  "charged_model_tasks": 0,
+  "scope": "startup_and_resource_loading; no real battle UI driven"
+}

@@ -1,0 +1,165 @@
+{
+  "sky": {
+    "asset": "environment/jade_garden_sky.glb",
+    "radius_m": 18.0,
+    "texture": [
+      2048,
+      1024
+    ],
+    "triangles": 4096,
+    "inward": true,
+    "exported_base_color_rgba": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "material_verified": true
+  },
+  "portraits": [
+    {
+      "hero": "copper_guard",
+      "source": "docs/models/copper_guard.jpg",
+      "drawable": "hero_copper_guard.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "core_mage",
+      "source": "docs/models/core_mage.jpg",
+      "drawable": "hero_core_mage.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "dawn_archer",
+      "source": "docs/models/dawn_archer.jpg",
+      "drawable": "hero_dawn_archer.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "dawn_oracle",
+      "source": "docs/models/dawn_oracle.jpg",
+      "drawable": "hero_dawn_oracle.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "dawn_priest",
+      "source": "docs/models/dawn_priest.jpg",
+      "drawable": "hero_dawn_priest.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "ember_acolyte",
+      "source": "docs/models/ember_acolyte.jpg",
+      "drawable": "hero_ember_acolyte.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "ember_breaker",
+      "source": "docs/models/ember_breaker.jpg",
+      "drawable": "hero_ember_breaker.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "flame_fighter",
+      "source": "docs/models/flame_fighter.jpg",
+      "drawable": "hero_flame_fighter.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "forest_blessing",
+      "source": "docs/models/forest_blessing.jpg",
+      "drawable": "hero_forest_blessing.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "forest_ranger",
+      "source": "docs/models/forest_ranger.jpg",
+      "drawable": "hero_forest_ranger.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "forest_witch",
+      "source": "docs/models/forest_witch.jpg",
+      "drawable": "hero_forest_witch.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "moss_guard",
+      "source": "docs/models/moss_guard.jpg",
+      "drawable": "hero_moss_guard.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "rune_apprentice",
+      "source": "docs/models/rune_apprentice.jpg",
+      "drawable": "hero_rune_apprentice.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "rune_archer",
+      "source": "docs/models/rune_archer.jpg",
+      "drawable": "hero_rune_archer.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "rune_sage",
+      "source": "docs/models/rune_sage.jpg",
+      "drawable": "hero_rune_sage.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    },
+    {
+      "hero": "rune_sentinel",
+      "source": "docs/models/rune_sentinel.jpg",
+      "drawable": "hero_rune_sentinel.jpg",
+      "dimensions": [
+        320,
+        320
+      ]
+    }
+  ]
+}

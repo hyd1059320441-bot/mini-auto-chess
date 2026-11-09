@@ -1,0 +1,55 @@
+{
+  "advisories": [
+    {
+      "evidence": "import com.pico.spatial.core.container.SpatialViewContent",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 14,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    },
+    {
+      "evidence": "val hpBack: Entity, val manaBack: Entity, val label: Entity, val ring: Entity,",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 95,
+      "rationale": "Foreground-facing details appear in a scene with depth transforms but no visible body/detail depth contract; review whether Z is being used only for front-view visibility.",
+      "rule": "surface-detail-depth-without-body-contract"
+    },
+    {
+      "evidence": "import com.pico.spatial.core.container.SpatialContainerStateEvent",
+      "file": "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+      "line": 30,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon, revision or size key; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    },
+    {
+      "evidence": "private fun Action(label: String, enabled: Boolean = true, selected: Boolean = false,",
+      "file": "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+      "line": 130,
+      "rationale": "Foreground-facing details appear in a scene with depth transforms but no visible body/detail depth contract; review whether Z is being used only for front-view visibility.",
+      "rule": "surface-detail-depth-without-body-contract"
+    },
+    {
+      "evidence": "fun contains(point: Point) = point.x.isFinite() && point.z.isFinite() &&",
+      "file": "app/src/main/java/com/pico/miniautochess/rules/BoardLayout.kt",
+      "line": 15,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon, revision or size key; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    }
+  ],
+  "kotlin_file_count": 3,
+  "passed": true,
+  "scan_inputs": [
+    "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+    "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+    "app/src/main/java/com/pico/miniautochess/rules/BoardLayout.kt"
+  ],
+  "schema_version": 3,
+  "signals": {
+    "BoundingBox": 0,
+    "convertPosition": 0,
+    "getVisualBounds": 9,
+    "materialResourceFactory": 5,
+    "meshResourceFactory": 7
+  },
+  "violations": []
+}

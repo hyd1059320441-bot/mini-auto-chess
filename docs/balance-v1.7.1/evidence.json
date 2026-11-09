@@ -1,0 +1,28 @@
+{
+  "version": "V1.7.1",
+  "date": "2026-11-09",
+  "production_source_sha256": {
+    "app/src/main/java/com/pico/miniautochess/rules/Catalog.kt": "f48fea9b1dedbf5db577510307ad1ee2c34b5e5697763e5e090d791cfcfee74f",
+    "app/src/main/java/com/pico/miniautochess/rules/CombatMath.kt": "37df2cf8f73bfe522a85880ab774c768f2f8150316dd9df8ebdf8fd155e41e60",
+    "app/src/main/java/com/pico/miniautochess/rules/Battle.kt": "bebec59a587cf6df1b27b47b869a9a1eecf52100e1bc8a1cd8cb8ad36666e1aa",
+    "app/src/main/java/com/pico/miniautochess/rules/GameEngine.kt": "ae4ab7cc5515d224eb0994ee0d5a4fb6a90c3e997c1a8abc9dc572a162f26872"
+  },
+  "production_class_sha256": {
+    "app/build/tmp/kotlin-classes/debug/com/pico/miniautochess/rules/Catalog.class": "49e39f6786b85c734a1cf99747e5d8c4ec7233f58a5d6640d7d86de2527b5230",
+    "app/build/tmp/kotlin-classes/debug/com/pico/miniautochess/rules/CombatMath.class": "1ea599083b47606f74819c30b4937bab12834fbe642383437c014555526cc5bf",
+    "app/build/tmp/kotlin-classes/debug/com/pico/miniautochess/rules/Battle.class": "40560353371d89b179d8eb425d89a178211c8cf76213efe9f72f3cfc4c9de262",
+    "app/build/tmp/kotlin-classes/debug/com/pico/miniautochess/rules/GameEngine.class": "c5b8846fc7496865d6da03b9012d176471197668ead23157ec41add9b17691c7"
+  },
+  "outputs": {
+    "lineups.csv": "c8fa99534789f46930021f9535741648cb78aac10a48fe293f69cc81c14af896",
+    "comps.csv": "d093c056dd0e60d0faea5406f9fab4e052303ac21ce891d6aee299c246088eba",
+    "hero_stats.csv": "2555aa84c29fd8d5484376e31d57f51cf0b1f2bfb3c95917d778e40e820d68fd",
+    "trios.csv": "45bfaf272fbf1f47e3b47608832d06ccbabe5a17074b9d5300a41109ef52fae2",
+    "duels.csv": "c52dd247f7923c4d76ab4cf269e37e1c9344ac8c51098cd3d0c63ab833d408fa"
+  },
+  "total_executed_battles": 11004,
+  "test_harness_sha256": "418ab24615b58920a0f50f553d96ad4738b3ff43093eba26a064a9c0e8a1a0a5",
+  "runtime": "Java21 calls existing Kotlin production classes; kotlin-stdlib2.0.21",
+  "output_scope": "controlled game-engine execution, not live player win rates",
+  "source_or_apk_modified": false
+}

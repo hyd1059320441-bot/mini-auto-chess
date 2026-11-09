@@ -51,7 +51,7 @@ for source in sorted((ROOT / "docs/models").glob("*.jpg")):
                  method=Image.Resampling.LANCZOS).save(target, quality=91)
     portraits.append({"hero": source.stem, "source": str(source.relative_to(ROOT)),
                       "drawable": target.name, "dimensions": [320, 320]})
-assert len(portraits) == 12
+assert len(portraits) == 16
 report = {"sky": {"asset": "environment/jade_garden_sky.glb", "radius_m": radius,
                   "texture": [2048, 1024], "triangles": len(faces), "inward": True,
                   "exported_base_color_rgba": factor, "material_verified": True},

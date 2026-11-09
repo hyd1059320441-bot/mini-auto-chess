@@ -9,19 +9,25 @@ import kotlin.math.sqrt
 data class Army(val playerId: Int, val units: List<UnitSnapshot>, val ghost: Boolean = false)
 enum class BattleOutcome { LEFT, RIGHT, DRAW }
 enum class CombatEventKind { HIT, SHOT, CAST, HEAL, BLOCK, FALL }
-data class CombatEvent(val sequence: Int, val kind: CombatEventKind, val actor: Int, val target: Int, val amount: Int)
+data class CombatEvent(val sequence: Int, val kind: CombatEventKind, val actor: Int, val target: Int, val amount: Int,
+    val actionId: Int = sequence,
+    val fromX: Float = Float.NaN, val fromY: Float = Float.NaN,
+    val toX: Float = Float.NaN, val toY: Float = Float.NaN, val time: Float = 0f)
 data class FighterSnapshot(
     val uid: Int, val heroId: String, val star: Int, val team: Int,
     val x: Float, val y: Float, val health: Float, val maxHealth: Float,
     val shield: Float, val mana: Float, val targetUid: Int?, val actionTime: Float,
     val attacks: Int = 0, val skills: Int = 0, val maxBlockedSeconds: Float = 0f,
     val firstAttackTime: Float? = null,
+    val lastAttackTime: Float = -10f, val lastCastTime: Float = -10f,
 )
 data class BattleSnapshot(
     val id: Int, val left: Army, val right: Army, val elapsed: Float,
     val fighters: List<FighterSnapshot>, val outcome: BattleOutcome?, val events: List<CombatEvent>,
+    val wallElapsed: Float = elapsed, val speedMultiplier: Int = 1,
 ) {
-    val label get() = "${if (left.playerId == 0) "你" else "棋手 ${left.playerId}"}  vs  ${if (right.ghost) "镜像" else if (right.playerId == 0) "你" else "棋手 ${right.playerId}"}"
+    val overtime get() = speedMultiplier > 1
+    val label get() = "${if (left.playerId == 0) "你" else "棋手 ${left.playerId}"}  vs  ${if (right.ghost) "棋手 ${right.playerId} 的镜像" else if (right.playerId == 0) "你" else "棋手 ${right.playerId}"}"
 }
 
 /** Fixed-step simultaneous intents. Rendering and spectating never mutate this object. */
@@ -32,6 +38,7 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
         val maxHealth = stats.maxHealth
         val damage = stats.attack
         val armor = stats.armor
+        val magicResist = stats.magicResist
         val interval = stats.interval
         val spell = stats.spell
         val regen = stats.regen
@@ -45,6 +52,8 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
         var cooldown = .2f
         var target: Int? = null
         var actionTime = -10f
+        var lastAttackTime = -10f
+        var lastCastTime = -10f
         var attacks = 0
         var skills = 0
         var firstAttackTime: Float? = null
@@ -55,15 +64,21 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
         val alive get() = health > 0f
         fun snapshot() = FighterSnapshot(unit.uid, unit.heroId, unit.star, team, x, y,
             health, maxHealth, shield, mana, target, actionTime,
-            attacks, skills, maxBlockedSeconds, firstAttackTime)
+            attacks, skills, maxBlockedSeconds, firstAttackTime, lastAttackTime, lastCastTime)
     }
-    private data class Intent(val source: Fighter, val target: Fighter, val amount: Float, val magic: Boolean, val kind: CombatEventKind)
+    private data class Intent(val source: Fighter, val target: Fighter, val amount: Float, val magic: Boolean,
+        val kind: CombatEventKind, val actionId: Int)
     private val fighters = left.units.map { Fighter(it, 0, left) } + right.units.map { Fighter(it, 1, right) }
     var elapsed = 0f
         private set
+    var wallElapsed = 0f
+        private set
+    val speedMultiplier get() = if (wallElapsed + .001f >= limit) Catalog.OVERTIME_SPEED else 1
+    private val recoveryMultiplier get() = if (speedMultiplier > 1) Catalog.OVERTIME_RECOVERY else 1f
     var outcome: BattleOutcome? = null
         private set
     private var sequence = 0
+    private var actionSequence = 0
     private val events = ArrayDeque<CombatEvent>()
     init { resolveIfFinished() }
     private fun distance(a: Fighter, b: Fighter) = hypot(a.x - b.x, a.y - b.y)
@@ -122,18 +137,73 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
         }
         return null
     }
-    private fun event(kind: CombatEventKind, a: Fighter, b: Fighter, amount: Float) {
-        events.addLast(CombatEvent(++sequence, kind, a.unit.uid, b.unit.uid, amount.toInt()))
-        while (events.size > 32) events.removeFirst()
+    private fun event(kind: CombatEventKind, a: Fighter, b: Fighter, amount: Float, actionId: Int = ++actionSequence) {
+        events.addLast(CombatEvent(++sequence, kind, a.unit.uid, b.unit.uid, amount.toInt(), actionId,
+            a.x, a.y, b.x, b.y, elapsed))
+        while (events.size > 128) events.removeFirst()
+    }
+    private fun cast(a: Fighter, b: Fighter, enemies: List<Fighter>, alive: List<Fighter>, intents: MutableList<Intent>): Boolean {
+        if (a.mana < Catalog.MAX_MANA) return false
+        val ranged = enemies.filter { distance(a, it) <= a.def.range + .015f }
+        if (a.def.skill in listOf(Skill.BOLT, Skill.NOVA, Skill.VOLLEY) && ranged.isEmpty()) return false
+        if (a.def.skill == Skill.CLEAVE && enemies.none { distance(a, it) <= 1.8f }) return false
+        a.mana = 0f
+        a.skills++
+        a.actionTime = elapsed
+        a.lastCastTime = elapsed
+        val actionId = ++actionSequence
+        a.cooldown = max(a.cooldown, .35f)
+        when (a.def.skill) {
+            Skill.HEAL -> {
+                val friend = alive.filter { it.team == a.team }
+                    .minWith(compareBy<Fighter> { it.health / it.maxHealth }.thenBy { it.unit.uid })
+                intents.add(Intent(a, friend, a.spell, true, CombatEventKind.HEAL, actionId))
+            }
+            Skill.SHIELD -> {
+                val amount = a.spell * recoveryMultiplier
+                a.shield = CombatMath.addShield(a.shield, amount, a.maxHealth)
+                event(CombatEventKind.BLOCK, a, a, amount, actionId)
+                enemies.filter { distance(a, it) <= 1.5f }.forEach {
+                    intents.add(Intent(a, it, a.spell * .35f, true, CombatEventKind.CAST, actionId))
+                }
+            }
+            Skill.VOLLEY -> ranged.take(2).forEach { intents.add(Intent(a, it, a.spell, false, CombatEventKind.CAST, actionId)) }
+            Skill.BOLT -> intents.add(Intent(a, ranged.first(), a.spell, true, CombatEventKind.CAST, actionId))
+            Skill.CLEAVE -> enemies.filter { distance(a, it) <= 1.8f }.forEach {
+                intents.add(Intent(a, it, a.spell, false, CombatEventKind.CAST, actionId))
+            }
+            Skill.NOVA -> {
+                val center = ranged.firstOrNull { it === b } ?: ranged.first()
+                enemies.filter { distance(center, it) <= 1.6f }.forEach {
+                    intents.add(Intent(a, it, a.spell * if (it === center) 1f else Catalog.NOVA_SPLASH,
+                        true, CombatEventKind.CAST, actionId))
+                }
+            }
+        }
+        return true
     }
     fun step() {
         if (outcome != null) return
+        // One step is always .1s of foreground playing time. Combat ticks
+        // retain their fixed duration, including cooldowns, movement and mana.
+        val speed = speedMultiplier
+        wallElapsed += Catalog.STEP
+        repeat(speed) { if (outcome == null) combatTick() }
+        if (outcome == null && wallElapsed + .001f >= limit + Catalog.OVERTIME_SECONDS) {
+            val a = fighters.filter { it.team == 0 && it.alive }
+            val b = fighters.filter { it.team == 1 && it.alive }
+            outcome = compareAtTimeout(a.size, b.size, a.sumOf { (it.health / it.maxHealth).toDouble() },
+                b.sumOf { (it.health / it.maxHealth).toDouble() })
+        }
+    }
+    private fun combatTick() {
         elapsed += Catalog.STEP
         val alive = fighters.filter { it.alive }
         val intents = mutableListOf<Intent>()
         val movements = mutableListOf<Triple<Fighter, Float, Float>>()
         for (a in alive) {
-            a.health = CombatMath.regenerate(a.health, a.maxHealth, a.regen, Catalog.STEP)
+            a.health = CombatMath.regenerate(a.health, a.maxHealth, a.regen * recoveryMultiplier, Catalog.STEP)
+            a.mana = min(Catalog.MAX_MANA, a.mana + Catalog.manaPerSecond(a.def.job) * Catalog.STEP)
             // Preserve sub-tick overshoot so e.g. +30% attack speed remains +30%.
             // Idle/movement cannot bank missed attacks and cause a later burst.
             a.cooldown = max(-Catalog.STEP, a.cooldown - Catalog.STEP)
@@ -141,6 +211,11 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
             var b = enemies.firstOrNull { distance(a, it) <= a.def.range + .015f && attackLine(a, it, alive) }
                 ?: enemies.firstOrNull { it.unit.uid == a.target } ?: enemies.firstOrNull() ?: continue
             a.target = b.unit.uid
+            // Full mana from incoming damage or regeneration casts without waiting for a basic attack.
+            if (cast(a, b, enemies, alive, intents)) {
+                a.path = emptyList(); a.blockedSeconds = 0f
+                continue
+            }
             val d = distance(a, b)
             if (d > a.def.range + .015f || !attackLine(a, b, alive)) {
                 val amount = min(1.5f * Catalog.STEP, (d - a.def.range + .06f).coerceAtLeast(.06f))
@@ -182,31 +257,11 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
                 a.blockedSeconds = 0f; a.path = emptyList()
                 a.cooldown += a.interval
                 a.actionTime = elapsed
+                a.lastAttackTime = elapsed
                 a.attacks++
                 if (a.firstAttackTime == null) a.firstAttackTime = elapsed
-                a.mana = min(100f, a.mana + 25f)
-                intents.add(Intent(a, b, a.damage, false, if (a.def.range > 2f) CombatEventKind.SHOT else CombatEventKind.HIT))
-                if (a.mana >= 100f) {
-                    a.skills++
-                    a.mana = 0f
-                    when (a.def.skill) {
-                        Skill.HEAL -> {
-                            val friend = alive.filter { it.team == a.team }.minWith(compareBy<Fighter> { it.health / it.maxHealth }.thenBy { it.unit.uid })
-                            intents.add(Intent(a, friend, a.spell, true, CombatEventKind.HEAL))
-                        }
-                        Skill.SHIELD -> {
-                            a.shield = CombatMath.addShield(a.shield, a.spell, a.maxHealth)
-                            event(CombatEventKind.BLOCK, a, a, a.spell)
-                            enemies.filter { distance(a, it) <= 1.5f }.forEach {
-                                intents.add(Intent(a, it, a.spell * .35f, true, CombatEventKind.CAST))
-                            }
-                        }
-                        Skill.VOLLEY -> enemies.take(2).forEach { intents.add(Intent(a, it, a.spell, false, CombatEventKind.CAST)) }
-                        Skill.BOLT -> intents.add(Intent(a, b, a.spell, true, CombatEventKind.CAST))
-                        Skill.CLEAVE -> enemies.filter { distance(a, it) <= 1.8f }.forEach { intents.add(Intent(a, it, a.spell, false, CombatEventKind.CAST)) }
-                        Skill.NOVA -> enemies.filter { distance(b, it) <= 1.6f }.forEach { intents.add(Intent(a, it, a.spell, true, CombatEventKind.CAST)) }
-                    }
-                }
+                a.mana = min(Catalog.MAX_MANA, a.mana + Catalog.manaOnAttack(a.def.job))
+                intents.add(Intent(a, b, a.damage, false, if (a.def.range > 2f) CombatEventKind.SHOT else CombatEventKind.HIT, ++actionSequence))
             }
         }
         // Movement resolves together; separation prevents same-side pawns occupying one point.
@@ -230,18 +285,21 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
         val damage = mutableMapOf<Fighter, Float>()
         val healing = mutableMapOf<Fighter, Float>()
         intents.forEach { intent ->
-            val raw = if (intent.magic || intent.kind == CombatEventKind.HEAL) intent.amount
-                else CombatMath.physicalDamage(intent.amount, intent.target.armor)
+            val raw = when {
+                intent.kind == CombatEventKind.HEAL -> intent.amount * recoveryMultiplier
+                intent.magic -> CombatMath.magicDamage(intent.amount, intent.target.magicResist)
+                else -> CombatMath.physicalDamage(intent.amount, intent.target.armor)
+            }
             val table = if (intent.kind == CombatEventKind.HEAL) healing else damage
             table[intent.target] = (table[intent.target] ?: 0f) + raw
-            event(intent.kind, intent.source, intent.target, raw)
+            event(intent.kind, intent.source, intent.target, raw, intent.actionId)
         }
         alive.forEach { f ->
             val total = damage[f] ?: 0f
             val life = CombatMath.resolveLife(f.health, f.maxHealth, f.shield, total, healing[f] ?: 0f)
             f.shield = life.shield
             f.health = life.health
-            if (total > 0) f.mana = min(100f, f.mana + 8f)
+            if (total > 0 && f.alive) f.mana = min(Catalog.MAX_MANA, f.mana + Catalog.manaOnHit(f.def.job))
             if (!f.alive) event(CombatEventKind.FALL, f, f, 0f)
         }
         resolveIfFinished()
@@ -253,11 +311,11 @@ class Battle(val id: Int, val left: Army, val right: Army, val limit: Float = Ca
             a.isEmpty() && b.isEmpty() -> BattleOutcome.DRAW
             a.isEmpty() -> BattleOutcome.RIGHT
             b.isEmpty() -> BattleOutcome.LEFT
-            elapsed + .001f >= limit -> compareAtTimeout(a.size, b.size, a.sumOf { (it.health / it.maxHealth).toDouble() }, b.sumOf { (it.health / it.maxHealth).toDouble() })
             else -> null
         }
     }
-    fun snapshot() = BattleSnapshot(id, left, right, elapsed, fighters.map { it.snapshot() }, outcome, events.toList())
+    fun snapshot() = BattleSnapshot(id, left, right, elapsed, fighters.map { it.snapshot() }, outcome, events.toList(),
+        wallElapsed, speedMultiplier)
     fun survivors(team: Int) = fighters.count { it.team == team && it.alive }
     companion object {
         private const val CLEARANCE = .605f

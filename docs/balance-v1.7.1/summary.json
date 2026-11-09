@@ -1,0 +1,2530 @@
+{
+  "counts": {
+    "duels": 9216,
+    "trios": 1536,
+    "lineups": 252,
+    "total": 11004
+  },
+  "same_hero_star_upgrade": {
+    "2vs1": {
+      "overall": {
+        "n": 64,
+        "wins": 60,
+        "losses": 0,
+        "draws": 4,
+        "score_pct": 96.88,
+        "end_at_40": 12,
+        "median_seconds": 4.4
+      },
+      "by_hero": {
+        "铜盾卫": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 19.1
+        },
+        "林间游侠": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.55
+        },
+        "符灯学徒": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "烬火侍者": {
+          "n": 4,
+          "wins": 2,
+          "losses": 0,
+          "draws": 2,
+          "score_pct": 75.0,
+          "end_at_40": 4,
+          "median_seconds": 40.0
+        },
+        "曙光祭司": {
+          "n": 4,
+          "wins": 2,
+          "losses": 0,
+          "draws": 2,
+          "score_pct": 75.0,
+          "end_at_40": 4,
+          "median_seconds": 40.0
+        },
+        "苔木守卫": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 26.75
+        },
+        "符弩射手": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.7
+        },
+        "焰刃斗士": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 5.45
+        },
+        "曜羽弓手": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.2
+        },
+        "森灵祝祷": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 4,
+          "median_seconds": 40.0
+        },
+        "星符贤者": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 1.85
+        },
+        "熔核术师": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "晨钟先知": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "藤冠巫女": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.1
+        },
+        "晶碑守望": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 28.65
+        },
+        "赤锤破阵": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 7.85
+        }
+      }
+    },
+    "3vs2": {
+      "overall": {
+        "n": 64,
+        "wins": 60,
+        "losses": 0,
+        "draws": 4,
+        "score_pct": 96.88,
+        "end_at_40": 12,
+        "median_seconds": 4.4
+      },
+      "by_hero": {
+        "铜盾卫": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 19.1
+        },
+        "林间游侠": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.55
+        },
+        "符灯学徒": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "烬火侍者": {
+          "n": 4,
+          "wins": 2,
+          "losses": 0,
+          "draws": 2,
+          "score_pct": 75.0,
+          "end_at_40": 4,
+          "median_seconds": 40.0
+        },
+        "曙光祭司": {
+          "n": 4,
+          "wins": 2,
+          "losses": 0,
+          "draws": 2,
+          "score_pct": 75.0,
+          "end_at_40": 4,
+          "median_seconds": 40.0
+        },
+        "苔木守卫": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 26.75
+        },
+        "符弩射手": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.7
+        },
+        "焰刃斗士": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 5.45
+        },
+        "曜羽弓手": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.2
+        },
+        "森灵祝祷": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 4,
+          "median_seconds": 40.0
+        },
+        "星符贤者": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 1.85
+        },
+        "熔核术师": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "晨钟先知": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "藤冠巫女": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.1
+        },
+        "晶碑守望": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 28.65
+        },
+        "赤锤破阵": {
+          "n": 4,
+          "wins": 4,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 7.85
+        }
+      }
+    }
+  },
+  "same_star_cost_same_job": {
+    "2vs1": {
+      "overall": {
+        "n": 96,
+        "wins": 90,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 93.75,
+        "end_at_40": 24,
+        "median_seconds": 10.45
+      },
+      "by_job": {
+        "GUARD": {
+          "n": 48,
+          "wins": 48,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 12,
+          "median_seconds": 14.7
+        },
+        "ARCHER": {
+          "n": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.85
+        },
+        "MAGE": {
+          "n": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.25
+        },
+        "SUPPORT": {
+          "n": 12,
+          "wins": 6,
+          "losses": 6,
+          "draws": 0,
+          "score_pct": 50.0,
+          "end_at_40": 12,
+          "median_seconds": 40.0
+        }
+      }
+    },
+    "3vs2": {
+      "overall": {
+        "n": 96,
+        "wins": 90,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 93.75,
+        "end_at_40": 24,
+        "median_seconds": 3.05
+      },
+      "by_job": {
+        "GUARD": {
+          "n": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 12,
+          "median_seconds": 26.25
+        },
+        "ARCHER": {
+          "n": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.2
+        },
+        "MAGE": {
+          "n": 48,
+          "wins": 48,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.45
+        },
+        "SUPPORT": {
+          "n": 12,
+          "wins": 6,
+          "losses": 6,
+          "draws": 0,
+          "score_pct": 50.0,
+          "end_at_40": 12,
+          "median_seconds": 40.0
+        }
+      }
+    },
+    "3vs1": {
+      "overall": {
+        "n": 72,
+        "wins": 72,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 12,
+        "median_seconds": 5.85
+      },
+      "by_job": {
+        "GUARD": {
+          "n": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 18.45
+        },
+        "ARCHER": {
+          "n": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 3.2
+        },
+        "MAGE": {
+          "n": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 0,
+          "median_seconds": 2.0
+        },
+        "SUPPORT": {
+          "n": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "score_pct": 100.0,
+          "end_at_40": 12,
+          "median_seconds": 40.0
+        }
+      }
+    }
+  },
+  "same_star_cost_trio": {
+    "2vs1": {
+      "n": 180,
+      "wins": 126,
+      "losses": 51,
+      "draws": 3,
+      "score_pct": 70.83,
+      "end_at_40": 96,
+      "median_seconds": 40.0
+    },
+    "3vs2": {
+      "n": 180,
+      "wins": 153,
+      "losses": 24,
+      "draws": 3,
+      "score_pct": 85.83,
+      "end_at_40": 69,
+      "median_seconds": 29.65
+    },
+    "3vs1": {
+      "n": 150,
+      "wins": 138,
+      "losses": 9,
+      "draws": 3,
+      "score_pct": 93.0,
+      "end_at_40": 48,
+      "median_seconds": 24.9
+    }
+  },
+  "duel_rankings": {
+    "1": [
+      {
+        "hero": "晶碑守望",
+        "id": "rune_sentinel",
+        "cost": 3,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 58,
+        "losses": 2,
+        "draws": 0,
+        "score_pct": 96.67,
+        "end_at_40": 12,
+        "median_seconds": 8.65
+      },
+      {
+        "hero": "熔核术师",
+        "id": "core_mage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 54,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 90.0,
+        "end_at_40": 0,
+        "median_seconds": 3.6
+      },
+      {
+        "hero": "森灵祝祷",
+        "id": "forest_blessing",
+        "cost": 3,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 50,
+        "losses": 10,
+        "draws": 0,
+        "score_pct": 83.33,
+        "end_at_40": 20,
+        "median_seconds": 12.15
+      },
+      {
+        "hero": "苔木守卫",
+        "id": "moss_guard",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 42,
+        "losses": 18,
+        "draws": 0,
+        "score_pct": 70.0,
+        "end_at_40": 20,
+        "median_seconds": 10.35
+      },
+      {
+        "hero": "曜羽弓手",
+        "id": "dawn_archer",
+        "cost": 3,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 42,
+        "losses": 18,
+        "draws": 0,
+        "score_pct": 70.0,
+        "end_at_40": 0,
+        "median_seconds": 3.65
+      },
+      {
+        "hero": "星符贤者",
+        "id": "rune_sage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 40,
+        "losses": 20,
+        "draws": 0,
+        "score_pct": 66.67,
+        "end_at_40": 0,
+        "median_seconds": 3.6
+      },
+      {
+        "hero": "焰刃斗士",
+        "id": "flame_fighter",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 35,
+        "losses": 25,
+        "draws": 0,
+        "score_pct": 58.33,
+        "end_at_40": 0,
+        "median_seconds": 7.05
+      },
+      {
+        "hero": "曙光祭司",
+        "id": "dawn_priest",
+        "cost": 2,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 34,
+        "losses": 26,
+        "draws": 0,
+        "score_pct": 56.67,
+        "end_at_40": 20,
+        "median_seconds": 13.9
+      },
+      {
+        "hero": "晨钟先知",
+        "id": "dawn_oracle",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 30,
+        "losses": 29,
+        "draws": 1,
+        "score_pct": 50.83,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      },
+      {
+        "hero": "铜盾卫",
+        "id": "copper_guard",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 24,
+        "losses": 36,
+        "draws": 0,
+        "score_pct": 40.0,
+        "end_at_40": 16,
+        "median_seconds": 11.4
+      },
+      {
+        "hero": "符弩射手",
+        "id": "rune_archer",
+        "cost": 2,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 18,
+        "losses": 41,
+        "draws": 1,
+        "score_pct": 30.83,
+        "end_at_40": 0,
+        "median_seconds": 5.95
+      },
+      {
+        "hero": "烬火侍者",
+        "id": "ember_acolyte",
+        "cost": 1,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 18,
+        "losses": 42,
+        "draws": 0,
+        "score_pct": 30.0,
+        "end_at_40": 16,
+        "median_seconds": 9.55
+      },
+      {
+        "hero": "藤冠巫女",
+        "id": "forest_witch",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 16,
+        "losses": 44,
+        "draws": 0,
+        "score_pct": 26.67,
+        "end_at_40": 0,
+        "median_seconds": 5.25
+      },
+      {
+        "hero": "符灯学徒",
+        "id": "rune_apprentice",
+        "cost": 1,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 12,
+        "losses": 48,
+        "draws": 0,
+        "score_pct": 20.0,
+        "end_at_40": 0,
+        "median_seconds": 4.55
+      },
+      {
+        "hero": "赤锤破阵",
+        "id": "ember_breaker",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 6,
+        "losses": 54,
+        "draws": 0,
+        "score_pct": 10.0,
+        "end_at_40": 0,
+        "median_seconds": 7.4
+      },
+      {
+        "hero": "林间游侠",
+        "id": "forest_ranger",
+        "cost": 1,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 0,
+        "losses": 60,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      }
+    ],
+    "2": [
+      {
+        "hero": "晶碑守望",
+        "id": "rune_sentinel",
+        "cost": 3,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 58,
+        "losses": 2,
+        "draws": 0,
+        "score_pct": 96.67,
+        "end_at_40": 12,
+        "median_seconds": 8.65
+      },
+      {
+        "hero": "熔核术师",
+        "id": "core_mage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 54,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 90.0,
+        "end_at_40": 0,
+        "median_seconds": 3.6
+      },
+      {
+        "hero": "森灵祝祷",
+        "id": "forest_blessing",
+        "cost": 3,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 50,
+        "losses": 10,
+        "draws": 0,
+        "score_pct": 83.33,
+        "end_at_40": 20,
+        "median_seconds": 12.15
+      },
+      {
+        "hero": "苔木守卫",
+        "id": "moss_guard",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 42,
+        "losses": 18,
+        "draws": 0,
+        "score_pct": 70.0,
+        "end_at_40": 20,
+        "median_seconds": 10.35
+      },
+      {
+        "hero": "曜羽弓手",
+        "id": "dawn_archer",
+        "cost": 3,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 42,
+        "losses": 18,
+        "draws": 0,
+        "score_pct": 70.0,
+        "end_at_40": 0,
+        "median_seconds": 3.65
+      },
+      {
+        "hero": "星符贤者",
+        "id": "rune_sage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 40,
+        "losses": 20,
+        "draws": 0,
+        "score_pct": 66.67,
+        "end_at_40": 0,
+        "median_seconds": 3.6
+      },
+      {
+        "hero": "焰刃斗士",
+        "id": "flame_fighter",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 35,
+        "losses": 25,
+        "draws": 0,
+        "score_pct": 58.33,
+        "end_at_40": 0,
+        "median_seconds": 7.05
+      },
+      {
+        "hero": "曙光祭司",
+        "id": "dawn_priest",
+        "cost": 2,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 34,
+        "losses": 26,
+        "draws": 0,
+        "score_pct": 56.67,
+        "end_at_40": 20,
+        "median_seconds": 13.9
+      },
+      {
+        "hero": "晨钟先知",
+        "id": "dawn_oracle",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 30,
+        "losses": 29,
+        "draws": 1,
+        "score_pct": 50.83,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      },
+      {
+        "hero": "铜盾卫",
+        "id": "copper_guard",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 24,
+        "losses": 36,
+        "draws": 0,
+        "score_pct": 40.0,
+        "end_at_40": 16,
+        "median_seconds": 11.4
+      },
+      {
+        "hero": "符弩射手",
+        "id": "rune_archer",
+        "cost": 2,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 18,
+        "losses": 41,
+        "draws": 1,
+        "score_pct": 30.83,
+        "end_at_40": 0,
+        "median_seconds": 5.95
+      },
+      {
+        "hero": "烬火侍者",
+        "id": "ember_acolyte",
+        "cost": 1,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 18,
+        "losses": 42,
+        "draws": 0,
+        "score_pct": 30.0,
+        "end_at_40": 16,
+        "median_seconds": 9.55
+      },
+      {
+        "hero": "藤冠巫女",
+        "id": "forest_witch",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 16,
+        "losses": 44,
+        "draws": 0,
+        "score_pct": 26.67,
+        "end_at_40": 0,
+        "median_seconds": 5.25
+      },
+      {
+        "hero": "符灯学徒",
+        "id": "rune_apprentice",
+        "cost": 1,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 12,
+        "losses": 48,
+        "draws": 0,
+        "score_pct": 20.0,
+        "end_at_40": 0,
+        "median_seconds": 4.55
+      },
+      {
+        "hero": "赤锤破阵",
+        "id": "ember_breaker",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 6,
+        "losses": 54,
+        "draws": 0,
+        "score_pct": 10.0,
+        "end_at_40": 0,
+        "median_seconds": 7.4
+      },
+      {
+        "hero": "林间游侠",
+        "id": "forest_ranger",
+        "cost": 1,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 0,
+        "losses": 60,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      }
+    ],
+    "3": [
+      {
+        "hero": "晶碑守望",
+        "id": "rune_sentinel",
+        "cost": 3,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 58,
+        "losses": 2,
+        "draws": 0,
+        "score_pct": 96.67,
+        "end_at_40": 12,
+        "median_seconds": 8.65
+      },
+      {
+        "hero": "熔核术师",
+        "id": "core_mage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 54,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 90.0,
+        "end_at_40": 0,
+        "median_seconds": 3.6
+      },
+      {
+        "hero": "森灵祝祷",
+        "id": "forest_blessing",
+        "cost": 3,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 50,
+        "losses": 10,
+        "draws": 0,
+        "score_pct": 83.33,
+        "end_at_40": 20,
+        "median_seconds": 12.15
+      },
+      {
+        "hero": "苔木守卫",
+        "id": "moss_guard",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 42,
+        "losses": 18,
+        "draws": 0,
+        "score_pct": 70.0,
+        "end_at_40": 20,
+        "median_seconds": 10.35
+      },
+      {
+        "hero": "曜羽弓手",
+        "id": "dawn_archer",
+        "cost": 3,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 42,
+        "losses": 18,
+        "draws": 0,
+        "score_pct": 70.0,
+        "end_at_40": 0,
+        "median_seconds": 3.65
+      },
+      {
+        "hero": "星符贤者",
+        "id": "rune_sage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 40,
+        "losses": 20,
+        "draws": 0,
+        "score_pct": 66.67,
+        "end_at_40": 0,
+        "median_seconds": 3.6
+      },
+      {
+        "hero": "焰刃斗士",
+        "id": "flame_fighter",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 35,
+        "losses": 25,
+        "draws": 0,
+        "score_pct": 58.33,
+        "end_at_40": 0,
+        "median_seconds": 7.05
+      },
+      {
+        "hero": "曙光祭司",
+        "id": "dawn_priest",
+        "cost": 2,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 34,
+        "losses": 26,
+        "draws": 0,
+        "score_pct": 56.67,
+        "end_at_40": 20,
+        "median_seconds": 13.9
+      },
+      {
+        "hero": "晨钟先知",
+        "id": "dawn_oracle",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 30,
+        "losses": 29,
+        "draws": 1,
+        "score_pct": 50.83,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      },
+      {
+        "hero": "铜盾卫",
+        "id": "copper_guard",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 24,
+        "losses": 36,
+        "draws": 0,
+        "score_pct": 40.0,
+        "end_at_40": 16,
+        "median_seconds": 11.4
+      },
+      {
+        "hero": "符弩射手",
+        "id": "rune_archer",
+        "cost": 2,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 18,
+        "losses": 41,
+        "draws": 1,
+        "score_pct": 30.83,
+        "end_at_40": 0,
+        "median_seconds": 5.95
+      },
+      {
+        "hero": "烬火侍者",
+        "id": "ember_acolyte",
+        "cost": 1,
+        "job": "SUPPORT",
+        "n": 60,
+        "wins": 18,
+        "losses": 42,
+        "draws": 0,
+        "score_pct": 30.0,
+        "end_at_40": 16,
+        "median_seconds": 9.55
+      },
+      {
+        "hero": "藤冠巫女",
+        "id": "forest_witch",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 16,
+        "losses": 44,
+        "draws": 0,
+        "score_pct": 26.67,
+        "end_at_40": 0,
+        "median_seconds": 5.25
+      },
+      {
+        "hero": "符灯学徒",
+        "id": "rune_apprentice",
+        "cost": 1,
+        "job": "MAGE",
+        "n": 60,
+        "wins": 12,
+        "losses": 48,
+        "draws": 0,
+        "score_pct": 20.0,
+        "end_at_40": 0,
+        "median_seconds": 4.55
+      },
+      {
+        "hero": "赤锤破阵",
+        "id": "ember_breaker",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 60,
+        "wins": 6,
+        "losses": 54,
+        "draws": 0,
+        "score_pct": 10.0,
+        "end_at_40": 0,
+        "median_seconds": 7.4
+      },
+      {
+        "hero": "林间游侠",
+        "id": "forest_ranger",
+        "cost": 1,
+        "job": "ARCHER",
+        "n": 60,
+        "wins": 0,
+        "losses": 60,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      }
+    ]
+  },
+  "trio_rankings": {
+    "1": [
+      {
+        "hero": "熔核术师",
+        "id": "core_mage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 29,
+        "losses": 1,
+        "draws": 0,
+        "score_pct": 96.67,
+        "end_at_40": 2,
+        "median_seconds": 17.5
+      },
+      {
+        "hero": "森灵祝祷",
+        "id": "forest_blessing",
+        "cost": 3,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 25,
+        "losses": 3,
+        "draws": 2,
+        "score_pct": 86.67,
+        "end_at_40": 30,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "星符贤者",
+        "id": "rune_sage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 26,
+        "losses": 4,
+        "draws": 0,
+        "score_pct": 86.67,
+        "end_at_40": 2,
+        "median_seconds": 17.85
+      },
+      {
+        "hero": "曜羽弓手",
+        "id": "dawn_archer",
+        "cost": 3,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 22,
+        "losses": 8,
+        "draws": 0,
+        "score_pct": 73.33,
+        "end_at_40": 4,
+        "median_seconds": 24.45
+      },
+      {
+        "hero": "晨钟先知",
+        "id": "dawn_oracle",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 22,
+        "losses": 8,
+        "draws": 0,
+        "score_pct": 73.33,
+        "end_at_40": 5,
+        "median_seconds": 24.5
+      },
+      {
+        "hero": "曙光祭司",
+        "id": "dawn_priest",
+        "cost": 2,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 19,
+        "losses": 9,
+        "draws": 2,
+        "score_pct": 66.67,
+        "end_at_40": 26,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "符灯学徒",
+        "id": "rune_apprentice",
+        "cost": 1,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 18,
+        "losses": 12,
+        "draws": 0,
+        "score_pct": 60.0,
+        "end_at_40": 6,
+        "median_seconds": 26.65
+      },
+      {
+        "hero": "藤冠巫女",
+        "id": "forest_witch",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 17,
+        "losses": 13,
+        "draws": 0,
+        "score_pct": 56.67,
+        "end_at_40": 8,
+        "median_seconds": 27.55
+      },
+      {
+        "hero": "晶碑守望",
+        "id": "rune_sentinel",
+        "cost": 3,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 15,
+        "losses": 15,
+        "draws": 0,
+        "score_pct": 50.0,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "烬火侍者",
+        "id": "ember_acolyte",
+        "cost": 1,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 13,
+        "losses": 15,
+        "draws": 2,
+        "score_pct": 46.67,
+        "end_at_40": 21,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "符弩射手",
+        "id": "rune_archer",
+        "cost": 2,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 10,
+        "losses": 20,
+        "draws": 0,
+        "score_pct": 33.33,
+        "end_at_40": 12,
+        "median_seconds": 36.85
+      },
+      {
+        "hero": "苔木守卫",
+        "id": "moss_guard",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 8,
+        "losses": 22,
+        "draws": 0,
+        "score_pct": 26.67,
+        "end_at_40": 16,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "林间游侠",
+        "id": "forest_ranger",
+        "cost": 1,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 7,
+        "losses": 23,
+        "draws": 0,
+        "score_pct": 23.33,
+        "end_at_40": 13,
+        "median_seconds": 37.45
+      },
+      {
+        "hero": "焰刃斗士",
+        "id": "flame_fighter",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 4,
+        "losses": 26,
+        "draws": 0,
+        "score_pct": 13.33,
+        "end_at_40": 18,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "铜盾卫",
+        "id": "copper_guard",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 2,
+        "losses": 28,
+        "draws": 0,
+        "score_pct": 6.67,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "赤锤破阵",
+        "id": "ember_breaker",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 0,
+        "losses": 30,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      }
+    ],
+    "2": [
+      {
+        "hero": "熔核术师",
+        "id": "core_mage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 29,
+        "losses": 1,
+        "draws": 0,
+        "score_pct": 96.67,
+        "end_at_40": 2,
+        "median_seconds": 17.5
+      },
+      {
+        "hero": "森灵祝祷",
+        "id": "forest_blessing",
+        "cost": 3,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 25,
+        "losses": 3,
+        "draws": 2,
+        "score_pct": 86.67,
+        "end_at_40": 30,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "星符贤者",
+        "id": "rune_sage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 26,
+        "losses": 4,
+        "draws": 0,
+        "score_pct": 86.67,
+        "end_at_40": 2,
+        "median_seconds": 17.85
+      },
+      {
+        "hero": "曜羽弓手",
+        "id": "dawn_archer",
+        "cost": 3,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 22,
+        "losses": 8,
+        "draws": 0,
+        "score_pct": 73.33,
+        "end_at_40": 4,
+        "median_seconds": 24.45
+      },
+      {
+        "hero": "晨钟先知",
+        "id": "dawn_oracle",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 22,
+        "losses": 8,
+        "draws": 0,
+        "score_pct": 73.33,
+        "end_at_40": 5,
+        "median_seconds": 24.5
+      },
+      {
+        "hero": "曙光祭司",
+        "id": "dawn_priest",
+        "cost": 2,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 19,
+        "losses": 9,
+        "draws": 2,
+        "score_pct": 66.67,
+        "end_at_40": 26,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "符灯学徒",
+        "id": "rune_apprentice",
+        "cost": 1,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 18,
+        "losses": 12,
+        "draws": 0,
+        "score_pct": 60.0,
+        "end_at_40": 6,
+        "median_seconds": 26.65
+      },
+      {
+        "hero": "藤冠巫女",
+        "id": "forest_witch",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 17,
+        "losses": 13,
+        "draws": 0,
+        "score_pct": 56.67,
+        "end_at_40": 8,
+        "median_seconds": 27.55
+      },
+      {
+        "hero": "晶碑守望",
+        "id": "rune_sentinel",
+        "cost": 3,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 15,
+        "losses": 15,
+        "draws": 0,
+        "score_pct": 50.0,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "烬火侍者",
+        "id": "ember_acolyte",
+        "cost": 1,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 13,
+        "losses": 15,
+        "draws": 2,
+        "score_pct": 46.67,
+        "end_at_40": 21,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "符弩射手",
+        "id": "rune_archer",
+        "cost": 2,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 10,
+        "losses": 20,
+        "draws": 0,
+        "score_pct": 33.33,
+        "end_at_40": 12,
+        "median_seconds": 36.85
+      },
+      {
+        "hero": "苔木守卫",
+        "id": "moss_guard",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 8,
+        "losses": 22,
+        "draws": 0,
+        "score_pct": 26.67,
+        "end_at_40": 16,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "林间游侠",
+        "id": "forest_ranger",
+        "cost": 1,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 7,
+        "losses": 23,
+        "draws": 0,
+        "score_pct": 23.33,
+        "end_at_40": 13,
+        "median_seconds": 37.45
+      },
+      {
+        "hero": "焰刃斗士",
+        "id": "flame_fighter",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 4,
+        "losses": 26,
+        "draws": 0,
+        "score_pct": 13.33,
+        "end_at_40": 18,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "铜盾卫",
+        "id": "copper_guard",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 2,
+        "losses": 28,
+        "draws": 0,
+        "score_pct": 6.67,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "赤锤破阵",
+        "id": "ember_breaker",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 0,
+        "losses": 30,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      }
+    ],
+    "3": [
+      {
+        "hero": "熔核术师",
+        "id": "core_mage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 29,
+        "losses": 1,
+        "draws": 0,
+        "score_pct": 96.67,
+        "end_at_40": 2,
+        "median_seconds": 17.5
+      },
+      {
+        "hero": "森灵祝祷",
+        "id": "forest_blessing",
+        "cost": 3,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 25,
+        "losses": 3,
+        "draws": 2,
+        "score_pct": 86.67,
+        "end_at_40": 30,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "星符贤者",
+        "id": "rune_sage",
+        "cost": 3,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 26,
+        "losses": 4,
+        "draws": 0,
+        "score_pct": 86.67,
+        "end_at_40": 2,
+        "median_seconds": 17.85
+      },
+      {
+        "hero": "曜羽弓手",
+        "id": "dawn_archer",
+        "cost": 3,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 22,
+        "losses": 8,
+        "draws": 0,
+        "score_pct": 73.33,
+        "end_at_40": 4,
+        "median_seconds": 24.45
+      },
+      {
+        "hero": "晨钟先知",
+        "id": "dawn_oracle",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 22,
+        "losses": 8,
+        "draws": 0,
+        "score_pct": 73.33,
+        "end_at_40": 5,
+        "median_seconds": 24.5
+      },
+      {
+        "hero": "曙光祭司",
+        "id": "dawn_priest",
+        "cost": 2,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 19,
+        "losses": 9,
+        "draws": 2,
+        "score_pct": 66.67,
+        "end_at_40": 26,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "符灯学徒",
+        "id": "rune_apprentice",
+        "cost": 1,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 18,
+        "losses": 12,
+        "draws": 0,
+        "score_pct": 60.0,
+        "end_at_40": 6,
+        "median_seconds": 26.65
+      },
+      {
+        "hero": "藤冠巫女",
+        "id": "forest_witch",
+        "cost": 2,
+        "job": "MAGE",
+        "n": 30,
+        "wins": 17,
+        "losses": 13,
+        "draws": 0,
+        "score_pct": 56.67,
+        "end_at_40": 8,
+        "median_seconds": 27.55
+      },
+      {
+        "hero": "晶碑守望",
+        "id": "rune_sentinel",
+        "cost": 3,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 15,
+        "losses": 15,
+        "draws": 0,
+        "score_pct": 50.0,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "烬火侍者",
+        "id": "ember_acolyte",
+        "cost": 1,
+        "job": "SUPPORT",
+        "n": 30,
+        "wins": 13,
+        "losses": 15,
+        "draws": 2,
+        "score_pct": 46.67,
+        "end_at_40": 21,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "符弩射手",
+        "id": "rune_archer",
+        "cost": 2,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 10,
+        "losses": 20,
+        "draws": 0,
+        "score_pct": 33.33,
+        "end_at_40": 12,
+        "median_seconds": 36.85
+      },
+      {
+        "hero": "苔木守卫",
+        "id": "moss_guard",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 8,
+        "losses": 22,
+        "draws": 0,
+        "score_pct": 26.67,
+        "end_at_40": 16,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "林间游侠",
+        "id": "forest_ranger",
+        "cost": 1,
+        "job": "ARCHER",
+        "n": 30,
+        "wins": 7,
+        "losses": 23,
+        "draws": 0,
+        "score_pct": 23.33,
+        "end_at_40": 13,
+        "median_seconds": 37.45
+      },
+      {
+        "hero": "焰刃斗士",
+        "id": "flame_fighter",
+        "cost": 2,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 4,
+        "losses": 26,
+        "draws": 0,
+        "score_pct": 13.33,
+        "end_at_40": 18,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "铜盾卫",
+        "id": "copper_guard",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 2,
+        "losses": 28,
+        "draws": 0,
+        "score_pct": 6.67,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      },
+      {
+        "hero": "赤锤破阵",
+        "id": "ember_breaker",
+        "cost": 1,
+        "job": "GUARD",
+        "n": 30,
+        "wins": 0,
+        "losses": 30,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 17,
+        "median_seconds": 40.0
+      }
+    ]
+  },
+  "cross_star_single_unit": {
+    "2star1cost_vs_1star3cost": {
+      "left_gold": 3,
+      "right_gold": 3,
+      "equal_investment": true,
+      "n": 100,
+      "wins": 83,
+      "losses": 17,
+      "draws": 0,
+      "score_pct": 83.0,
+      "end_at_40": 16,
+      "median_seconds": 7.45
+    },
+    "3star1cost_vs_2star3cost": {
+      "left_gold": 9,
+      "right_gold": 9,
+      "equal_investment": true,
+      "n": 100,
+      "wins": 83,
+      "losses": 17,
+      "draws": 0,
+      "score_pct": 83.0,
+      "end_at_40": 16,
+      "median_seconds": 7.45
+    },
+    "3star2cost_vs_2star3cost": {
+      "left_gold": 18,
+      "right_gold": 9,
+      "equal_investment": false,
+      "n": 120,
+      "wins": 112,
+      "losses": 8,
+      "draws": 0,
+      "score_pct": 93.33,
+      "end_at_40": 16,
+      "median_seconds": 5.35
+    }
+  },
+  "lineups": [
+    {
+      "comp": "rune_mage",
+      "gold_at_two_star": "48",
+      "heroes": "rune_apprentice|rune_archer|rune_sage|rune_sentinel|forest_witch|core_mage|dawn_oracle",
+      "n": 36,
+      "wins": 35,
+      "losses": 1,
+      "draws": 0,
+      "score_pct": 97.22,
+      "end_at_40": 0,
+      "median_seconds": 5.1
+    },
+    {
+      "comp": "dawn4",
+      "gold_at_two_star": "48",
+      "heroes": "copper_guard|dawn_priest|dawn_archer|dawn_oracle|moss_guard|rune_sage|core_mage",
+      "n": 36,
+      "wins": 31,
+      "losses": 5,
+      "draws": 0,
+      "score_pct": 86.11,
+      "end_at_40": 0,
+      "median_seconds": 6.55
+    },
+    {
+      "comp": "ember4",
+      "gold_at_two_star": "36",
+      "heroes": "ember_acolyte|flame_fighter|core_mage|ember_breaker|rune_sage|rune_apprentice|copper_guard",
+      "n": 36,
+      "wins": 23,
+      "losses": 13,
+      "draws": 0,
+      "score_pct": 63.89,
+      "end_at_40": 0,
+      "median_seconds": 6.15
+    },
+    {
+      "comp": "guard5",
+      "gold_at_two_star": "45",
+      "heroes": "copper_guard|moss_guard|flame_fighter|rune_sentinel|ember_breaker|rune_sage|dawn_archer",
+      "n": 36,
+      "wins": 19,
+      "losses": 17,
+      "draws": 0,
+      "score_pct": 52.78,
+      "end_at_40": 0,
+      "median_seconds": 8.95
+    },
+    {
+      "comp": "archer_support",
+      "gold_at_two_star": "42",
+      "heroes": "forest_ranger|rune_archer|dawn_archer|ember_acolyte|dawn_priest|forest_blessing|moss_guard",
+      "n": 36,
+      "wins": 10,
+      "losses": 26,
+      "draws": 0,
+      "score_pct": 27.78,
+      "end_at_40": 0,
+      "median_seconds": 8.8
+    },
+    {
+      "comp": "mixed",
+      "gold_at_two_star": "36",
+      "heroes": "copper_guard|moss_guard|forest_ranger|rune_archer|ember_acolyte|dawn_oracle|core_mage",
+      "n": 36,
+      "wins": 6,
+      "losses": 30,
+      "draws": 0,
+      "score_pct": 16.67,
+      "end_at_40": 0,
+      "median_seconds": 8.25
+    },
+    {
+      "comp": "forest_support",
+      "gold_at_two_star": "36",
+      "heroes": "forest_ranger|moss_guard|forest_blessing|forest_witch|dawn_priest|ember_acolyte|copper_guard",
+      "n": 36,
+      "wins": 2,
+      "losses": 34,
+      "draws": 0,
+      "score_pct": 5.56,
+      "end_at_40": 0,
+      "median_seconds": 9.4
+    }
+  ],
+  "lineup_matrix": {
+    "forest_support": {
+      "rune_mage": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      },
+      "guard5": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 12.9
+      },
+      "archer_support": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 23.2
+      },
+      "ember4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 6.1
+      },
+      "dawn4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 7.5
+      },
+      "mixed": {
+        "n": 6,
+        "wins": 2,
+        "losses": 4,
+        "draws": 0,
+        "score_pct": 33.33,
+        "end_at_40": 0,
+        "median_seconds": 13.85
+      }
+    },
+    "rune_mage": {
+      "forest_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 5.05
+      },
+      "guard5": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 5.45
+      },
+      "archer_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 4.95
+      },
+      "ember4": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 4.9
+      },
+      "dawn4": {
+        "n": 6,
+        "wins": 5,
+        "losses": 1,
+        "draws": 0,
+        "score_pct": 83.33,
+        "end_at_40": 0,
+        "median_seconds": 5.3
+      },
+      "mixed": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 5.0
+      }
+    },
+    "guard5": {
+      "forest_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 12.9
+      },
+      "rune_mage": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 5.45
+      },
+      "archer_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 11.5
+      },
+      "ember4": {
+        "n": 6,
+        "wins": 1,
+        "losses": 5,
+        "draws": 0,
+        "score_pct": 16.67,
+        "end_at_40": 0,
+        "median_seconds": 8.3
+      },
+      "dawn4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 8.4
+      },
+      "mixed": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 10.0
+      }
+    },
+    "archer_support": {
+      "forest_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 21.1
+      },
+      "rune_mage": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 4.95
+      },
+      "guard5": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 11.95
+      },
+      "ember4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 6.65
+      },
+      "dawn4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 6.95
+      },
+      "mixed": {
+        "n": 6,
+        "wins": 4,
+        "losses": 2,
+        "draws": 0,
+        "score_pct": 66.67,
+        "end_at_40": 0,
+        "median_seconds": 10.9
+      }
+    },
+    "ember4": {
+      "forest_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 6.1
+      },
+      "rune_mage": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 4.9
+      },
+      "guard5": {
+        "n": 6,
+        "wins": 5,
+        "losses": 1,
+        "draws": 0,
+        "score_pct": 83.33,
+        "end_at_40": 0,
+        "median_seconds": 8.3
+      },
+      "archer_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 6.45
+      },
+      "dawn4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 6.15
+      },
+      "mixed": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 6.0
+      }
+    },
+    "dawn4": {
+      "forest_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 7.5
+      },
+      "rune_mage": {
+        "n": 6,
+        "wins": 1,
+        "losses": 5,
+        "draws": 0,
+        "score_pct": 16.67,
+        "end_at_40": 0,
+        "median_seconds": 5.45
+      },
+      "guard5": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 8.4
+      },
+      "archer_support": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 6.95
+      },
+      "ember4": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 6.15
+      },
+      "mixed": {
+        "n": 6,
+        "wins": 6,
+        "losses": 0,
+        "draws": 0,
+        "score_pct": 100.0,
+        "end_at_40": 0,
+        "median_seconds": 7.55
+      }
+    },
+    "mixed": {
+      "forest_support": {
+        "n": 6,
+        "wins": 4,
+        "losses": 2,
+        "draws": 0,
+        "score_pct": 66.67,
+        "end_at_40": 0,
+        "median_seconds": 13.85
+      },
+      "rune_mage": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 5.0
+      },
+      "guard5": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 10.15
+      },
+      "archer_support": {
+        "n": 6,
+        "wins": 2,
+        "losses": 4,
+        "draws": 0,
+        "score_pct": 33.33,
+        "end_at_40": 0,
+        "median_seconds": 11.1
+      },
+      "ember4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 6.0
+      },
+      "dawn4": {
+        "n": 6,
+        "wins": 0,
+        "losses": 6,
+        "draws": 0,
+        "score_pct": 0.0,
+        "end_at_40": 0,
+        "median_seconds": 7.55
+      }
+    }
+  },
+  "base_progression": {
+    "shield_guard": [
+      {
+        "id": "copper_guard",
+        "name": "铜盾卫",
+        "cost": "1",
+        "faction": "DAWN",
+        "job": "GUARD",
+        "star": "1",
+        "hp": "760.0000",
+        "attack": "50.0000",
+        "armor": "32.0000",
+        "interval": "1.20000",
+        "spell": "220.0000",
+        "mana": "0.00",
+        "range": "1.20",
+        "regen": "0.0000",
+        "basic_dps": 41.667,
+        "physical_ehp": 1003.2
+      },
+      {
+        "id": "moss_guard",
+        "name": "苔木守卫",
+        "cost": "2",
+        "faction": "FOREST",
+        "job": "GUARD",
+        "star": "1",
+        "hp": "900.0000",
+        "attack": "58.0000",
+        "armor": "36.0000",
+        "interval": "1.30000",
+        "spell": "340.0000",
+        "mana": "0.00",
+        "range": "1.20",
+        "regen": "0.0000",
+        "basic_dps": 44.615,
+        "physical_ehp": 1224.0
+      },
+      {
+        "id": "rune_sentinel",
+        "name": "晶碑守望",
+        "cost": "3",
+        "faction": "RUNE",
+        "job": "GUARD",
+        "star": "1",
+        "hp": "1040.0000",
+        "attack": "70.0000",
+        "armor": "38.0000",
+        "interval": "1.30000",
+        "spell": "450.0000",
+        "mana": "0.00",
+        "range": "1.20",
+        "regen": "0.0000",
+        "basic_dps": 53.846,
+        "physical_ehp": 1435.2
+      }
+    ],
+    "volley_archer": [
+      {
+        "id": "forest_ranger",
+        "name": "林间游侠",
+        "cost": "1",
+        "faction": "FOREST",
+        "job": "ARCHER",
+        "star": "1",
+        "hp": "440.0000",
+        "attack": "64.0000",
+        "armor": "8.0000",
+        "interval": "0.90909",
+        "spell": "140.0000",
+        "mana": "0.00",
+        "range": "3.80",
+        "regen": "0.0000",
+        "basic_dps": 70.4,
+        "physical_ehp": 475.2
+      },
+      {
+        "id": "rune_archer",
+        "name": "符弩射手",
+        "cost": "2",
+        "faction": "RUNE",
+        "job": "ARCHER",
+        "star": "1",
+        "hp": "540.0000",
+        "attack": "78.0000",
+        "armor": "10.0000",
+        "interval": "1.00000",
+        "spell": "220.0000",
+        "mana": "0.00",
+        "range": "4.00",
+        "regen": "0.0000",
+        "basic_dps": 78.0,
+        "physical_ehp": 594.0
+      },
+      {
+        "id": "dawn_archer",
+        "name": "曜羽弓手",
+        "cost": "3",
+        "faction": "DAWN",
+        "job": "ARCHER",
+        "star": "1",
+        "hp": "620.0000",
+        "attack": "96.0000",
+        "armor": "12.0000",
+        "interval": "0.81818",
+        "spell": "290.0000",
+        "mana": "0.00",
+        "range": "4.20",
+        "regen": "0.0000",
+        "basic_dps": 117.334,
+        "physical_ehp": 694.4
+      }
+    ],
+    "heal_support": [
+      {
+        "id": "ember_acolyte",
+        "name": "烬火侍者",
+        "cost": "1",
+        "faction": "EMBER",
+        "job": "SUPPORT",
+        "star": "1",
+        "hp": "510.0000",
+        "attack": "48.0000",
+        "armor": "10.0000",
+        "interval": "1.20000",
+        "spell": "287.5000",
+        "mana": "0.00",
+        "range": "2.80",
+        "regen": "0.0000",
+        "basic_dps": 40.0,
+        "physical_ehp": 561.0
+      },
+      {
+        "id": "dawn_priest",
+        "name": "曙光祭司",
+        "cost": "2",
+        "faction": "DAWN",
+        "job": "SUPPORT",
+        "star": "1",
+        "hp": "580.0000",
+        "attack": "52.0000",
+        "armor": "12.0000",
+        "interval": "1.15000",
+        "spell": "414.0000",
+        "mana": "0.00",
+        "range": "3.00",
+        "regen": "0.0000",
+        "basic_dps": 45.217,
+        "physical_ehp": 649.6
+      },
+      {
+        "id": "forest_blessing",
+        "name": "森灵祝祷",
+        "cost": "3",
+        "faction": "FOREST",
+        "job": "SUPPORT",
+        "star": "1",
+        "hp": "680.0000",
+        "attack": "64.0000",
+        "armor": "14.0000",
+        "interval": "1.05000",
+        "spell": "552.0000",
+        "mana": "0.00",
+        "range": "3.20",
+        "regen": "0.0000",
+        "basic_dps": 60.952,
+        "physical_ehp": 775.2
+      }
+    ],
+    "single_bolt_mage": [
+      {
+        "id": "rune_apprentice",
+        "name": "符灯学徒",
+        "cost": "1",
+        "faction": "RUNE",
+        "job": "MAGE",
+        "star": "1",
+        "hp": "420.0000",
+        "attack": "46.0000",
+        "armor": "6.0000",
+        "interval": "1.20000",
+        "spell": "330.0000",
+        "mana": "20.00",
+        "range": "3.50",
+        "regen": "0.0000",
+        "basic_dps": 38.333,
+        "physical_ehp": 445.2
+      },
+      {
+        "id": "dawn_oracle",
+        "name": "晨钟先知",
+        "cost": "2",
+        "faction": "DAWN",
+        "job": "MAGE",
+        "star": "1",
+        "hp": "500.0000",
+        "attack": "50.0000",
+        "armor": "10.0000",
+        "interval": "1.20000",
+        "spell": "363.0000",
+        "mana": "20.00",
+        "range": "3.50",
+        "regen": "0.0000",
+        "basic_dps": 41.667,
+        "physical_ehp": 550.0
+      }
+    ],
+    "cleave_guard": [
+      {
+        "id": "ember_breaker",
+        "name": "赤锤破阵",
+        "cost": "1",
+        "faction": "EMBER",
+        "job": "GUARD",
+        "star": "1",
+        "hp": "700.0000",
+        "attack": "58.0000",
+        "armor": "26.0000",
+        "interval": "1.35000",
+        "spell": "190.0000",
+        "mana": "0.00",
+        "range": "1.30",
+        "regen": "0.0000",
+        "basic_dps": 42.963,
+        "physical_ehp": 882.0
+      },
+      {
+        "id": "flame_fighter",
+        "name": "焰刃斗士",
+        "cost": "2",
+        "faction": "EMBER",
+        "job": "GUARD",
+        "star": "1",
+        "hp": "820.0000",
+        "attack": "78.0000",
+        "armor": "28.0000",
+        "interval": "1.10000",
+        "spell": "260.0000",
+        "mana": "0.00",
+        "range": "1.30",
+        "regen": "0.0000",
+        "basic_dps": 70.909,
+        "physical_ehp": 1049.6
+      }
+    ]
+  }
+}

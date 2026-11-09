@@ -1,0 +1,82 @@
+{
+  "tests": 84,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "version": "V1.6.0",
+  "sdk": "6.1.9",
+  "suites": [
+    {
+      "name": "com.pico.miniautochess.rules.BoardLayoutTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.619Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "0.03"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMathTest",
+      "tests": "17",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.651Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "0.014"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMovementTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.667Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "0.064"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.ExpansionTest",
+      "tests": "11",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.733Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "0.065"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.GameEngineTest",
+      "tests": "42",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.801Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "0.078"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.PresentationTest",
+      "tests": "5",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.880Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "0.004"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.SimulationTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-11-07T12:27:52.885Z",
+      "hostname": "JXT3V7YG4D",
+      "time": "1.958"
+    }
+  ],
+  "simulation_matches": 100,
+  "build": "v1.6-build.log"
+}

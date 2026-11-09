@@ -1,0 +1,444 @@
+{
+  "version": "V1.8.0",
+  "version_code": 13,
+  "sdk": "6.1.9",
+  "device": "PB331XPGL6040019G",
+  "running": true,
+  "pid": 21857,
+  "apk_sha256": "90dd3dc9a46fd99e4ce270812bdf54d569b253d8b12a9f25871d758bb9db816e",
+  "installed_matches": true,
+  "build": "PASS",
+  "tests_passed": 102,
+  "source_gate": "PASS",
+  "experimental_api_opt_in_gate": "PASS",
+  "source_gate_advisories": [
+    {
+      "evidence": "import com.pico.spatial.core.container.SpatialViewContent",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 14,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    },
+    {
+      "evidence": "val hpBack: Entity, val manaBack: Entity, val label: Entity, val ring: Entity,",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 95,
+      "rationale": "Foreground-facing details appear in a scene with depth transforms but no visible body/detail depth contract; review whether Z is being used only for front-view visibility.",
+      "rule": "surface-detail-depth-without-body-contract"
+    },
+    {
+      "evidence": "import com.pico.spatial.core.container.SpatialContainerStateEvent",
+      "file": "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+      "line": 30,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon, revision or size key; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    },
+    {
+      "evidence": "private fun Action(label: String, enabled: Boolean = true, selected: Boolean = false,",
+      "file": "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+      "line": 130,
+      "rationale": "Foreground-facing details appear in a scene with depth transforms but no visible body/detail depth contract; review whether Z is being used only for front-view visibility.",
+      "rule": "surface-detail-depth-without-body-contract"
+    },
+    {
+      "evidence": "fun contains(point: Point) = point.x.isFinite() && point.z.isFinite() &&",
+      "file": "app/src/main/java/com/pico/miniautochess/rules/BoardLayout.kt",
+      "line": 15,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon, revision or size key; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    }
+  ],
+  "scene_ready": true,
+  "scene_offset_meters": [
+    0,
+    0,
+    -0.3
+  ],
+  "hero_visual_scale": 0.85,
+  "board_height_y_meters": 0.265,
+  "shop_separated": true,
+  "occupied_drag_targets": 40,
+  "fatal_exception_observed": false,
+  "fatal_signal_observed": false,
+  "platform_error_tags_preserved": {
+    "libprocessgroup": 1,
+    "o.miniautochess": 25,
+    "ashmem  ": 1,
+    "SimpleTimeTrace": 4,
+    "SPPackGlue": 2,
+    "SPC-mini22-IPCClientService": 22,
+    "SPC-mini22-MetricsManager": 8,
+    "SPC-mini22-SpatialContext": 2,
+    "SPC-mini22-AsyncTaskHandlerRegister": 1,
+    "SPC-mini22-SpatialSession": 4,
+    "SPC-mini22-Global": 1,
+    "SPC-mini22-PerfProfiler": 2,
+    "PxrNotificationClient": 1,
+    "PxrConfigServiceClient": 1,
+    "SpatialPack": 18,
+    "SYS_DEFAULT_LOG": 3,
+    "PXR-HWUI": 1,
+    "SpatialPack_SceneInspector": 1,
+    "KERNEL  ": 3,
+    "DMABUFHEAPS": 151,
+    "MediaCodec": 20
+  },
+  "balance_validation": {
+    "all": {
+      "forest_support": {
+        "games": 432,
+        "wins": 249,
+        "losses": 183,
+        "draws": 0,
+        "score_pct": 57.64
+      },
+      "rune_mage": {
+        "games": 432,
+        "wins": 230,
+        "losses": 201,
+        "draws": 1,
+        "score_pct": 53.36
+      },
+      "guard5": {
+        "games": 432,
+        "wins": 238,
+        "losses": 194,
+        "draws": 0,
+        "score_pct": 55.09
+      },
+      "archer_support": {
+        "games": 432,
+        "wins": 181,
+        "losses": 251,
+        "draws": 0,
+        "score_pct": 41.9
+      },
+      "ember4": {
+        "games": 432,
+        "wins": 250,
+        "losses": 182,
+        "draws": 0,
+        "score_pct": 57.87
+      },
+      "dawn4": {
+        "games": 432,
+        "wins": 190,
+        "losses": 241,
+        "draws": 1,
+        "score_pct": 44.1
+      },
+      "mixed": {
+        "games": 432,
+        "wins": 178,
+        "losses": 254,
+        "draws": 0,
+        "score_pct": 41.2
+      }
+    },
+    "36": {
+      "forest_support": {
+        "games": 144,
+        "wins": 79,
+        "losses": 65,
+        "draws": 0,
+        "score_pct": 54.86
+      },
+      "rune_mage": {
+        "games": 144,
+        "wins": 28,
+        "losses": 115,
+        "draws": 1,
+        "score_pct": 19.79
+      },
+      "guard5": {
+        "games": 144,
+        "wins": 98,
+        "losses": 46,
+        "draws": 0,
+        "score_pct": 68.06
+      },
+      "archer_support": {
+        "games": 144,
+        "wins": 36,
+        "losses": 108,
+        "draws": 0,
+        "score_pct": 25.0
+      },
+      "ember4": {
+        "games": 144,
+        "wins": 109,
+        "losses": 35,
+        "draws": 0,
+        "score_pct": 75.69
+      },
+      "dawn4": {
+        "games": 144,
+        "wins": 75,
+        "losses": 68,
+        "draws": 1,
+        "score_pct": 52.43
+      },
+      "mixed": {
+        "games": 144,
+        "wins": 77,
+        "losses": 67,
+        "draws": 0,
+        "score_pct": 53.47
+      }
+    },
+    "48": {
+      "forest_support": {
+        "games": 144,
+        "wins": 77,
+        "losses": 67,
+        "draws": 0,
+        "score_pct": 53.47
+      },
+      "rune_mage": {
+        "games": 144,
+        "wins": 112,
+        "losses": 32,
+        "draws": 0,
+        "score_pct": 77.78
+      },
+      "guard5": {
+        "games": 144,
+        "wins": 88,
+        "losses": 56,
+        "draws": 0,
+        "score_pct": 61.11
+      },
+      "archer_support": {
+        "games": 144,
+        "wins": 39,
+        "losses": 105,
+        "draws": 0,
+        "score_pct": 27.08
+      },
+      "ember4": {
+        "games": 144,
+        "wins": 98,
+        "losses": 46,
+        "draws": 0,
+        "score_pct": 68.06
+      },
+      "dawn4": {
+        "games": 144,
+        "wins": 58,
+        "losses": 86,
+        "draws": 0,
+        "score_pct": 40.28
+      },
+      "mixed": {
+        "games": 144,
+        "wins": 37,
+        "losses": 107,
+        "draws": 0,
+        "score_pct": 25.69
+      }
+    },
+    "60": {
+      "forest_support": {
+        "games": 144,
+        "wins": 93,
+        "losses": 51,
+        "draws": 0,
+        "score_pct": 64.58
+      },
+      "rune_mage": {
+        "games": 144,
+        "wins": 90,
+        "losses": 54,
+        "draws": 0,
+        "score_pct": 62.5
+      },
+      "guard5": {
+        "games": 144,
+        "wins": 52,
+        "losses": 92,
+        "draws": 0,
+        "score_pct": 36.11
+      },
+      "archer_support": {
+        "games": 144,
+        "wins": 106,
+        "losses": 38,
+        "draws": 0,
+        "score_pct": 73.61
+      },
+      "ember4": {
+        "games": 144,
+        "wins": 43,
+        "losses": 101,
+        "draws": 0,
+        "score_pct": 29.86
+      },
+      "dawn4": {
+        "games": 144,
+        "wins": 57,
+        "losses": 87,
+        "draws": 0,
+        "score_pct": 39.58
+      },
+      "mixed": {
+        "games": 144,
+        "wins": 64,
+        "losses": 80,
+        "draws": 0,
+        "score_pct": 44.44
+      }
+    },
+    "games": 3024,
+    "timeout_count": 50,
+    "timeout_pct": 1.65
+  },
+  "star_cost_validation": {
+    "games": 10752,
+    "upgrades": {
+      "2vs1": {
+        "games": 64,
+        "wins": 64,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 6
+      },
+      "3vs2": {
+        "games": 64,
+        "wins": 64,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 6
+      }
+    },
+    "costs": {
+      "2vs1": {
+        "卫士": {
+          "games": 48,
+          "wins": 48,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "射手": {
+          "games": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "法师": {
+          "games": 24,
+          "wins": 12,
+          "losses": 0,
+          "draws": 12,
+          "timeouts": 0
+        },
+        "辅助": {
+          "games": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 12
+        }
+      },
+      "3vs2": {
+        "卫士": {
+          "games": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 12
+        },
+        "射手": {
+          "games": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "法师": {
+          "games": 48,
+          "wins": 48,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "辅助": {
+          "games": 12,
+          "wins": 6,
+          "losses": 6,
+          "draws": 0,
+          "timeouts": 12
+        }
+      },
+      "3vs1": {
+        "卫士": {
+          "games": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "射手": {
+          "games": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "法师": {
+          "games": 24,
+          "wins": 24,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        },
+        "辅助": {
+          "games": 12,
+          "wins": 12,
+          "losses": 0,
+          "draws": 0,
+          "timeouts": 0
+        }
+      }
+    },
+    "trio_costs": {
+      "2vs1": {
+        "games": 180,
+        "wins": 132,
+        "losses": 45,
+        "draws": 3,
+        "timeouts": 85
+      },
+      "3vs2": {
+        "games": 180,
+        "wins": 177,
+        "losses": 3,
+        "draws": 0,
+        "timeouts": 54
+      },
+      "3vs1": {
+        "games": 150,
+        "wins": 150,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 35
+      }
+    },
+    "equal_9_gold_solo": {
+      "games": 100,
+      "wins": 72,
+      "losses": 28,
+      "draws": 0,
+      "timeouts": 16
+    }
+  },
+  "simulation_matches": 100,
+  "strategy_simulation_matches": 150,
+  "a11y_source_passed": false,
+  "a11y_disposition": "SDK6.1.9 lacks Spatial AccessibilityComponent; two existing Attachment owners unresolved; native Compose semantics retained",
+  "visual": "UNOBSERVED",
+  "interaction_verification": "user_headset",
+  "runtime_scope": "installation_liveness_menu_scene_numeric_geometry",
+  "charged_model_tasks": 0
+}

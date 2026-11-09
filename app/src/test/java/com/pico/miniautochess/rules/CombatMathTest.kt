@@ -14,56 +14,59 @@ class CombatMathTest {
     }
 
     @Test fun dawnOnlyBoostsDawnHealthAtBothThresholds() {
-        val ids = army("copper_guard", "dawn_priest", "dawn_archer")
+        val ids = army("copper_guard", "dawn_priest", "dawn_archer", "dawn_oracle")
         close(760f, stats(ids.take(1)).maxHealth)
         close(874f, stats(ids.take(2)).maxHealth)
+        close(874f, stats(ids.take(3)).maxHealth)
         close(988f, stats(ids).maxHealth)
         val other = UnitSnapshot(10, "rune_apprentice", 1, 9)
         close(420f, CombatMath.stats(other, ids + other).maxHealth)
     }
     @Test fun forestRestoresOneOrTwoPercentOfMaximumPerSecond() {
-        val ids = army("forest_ranger", "moss_guard", "forest_blessing")
+        val ids = army("forest_ranger", "moss_guard", "forest_blessing", "forest_witch")
         close(0f, stats(ids.take(1)).regen); close(.01f, stats(ids.take(2)).regen); close(.02f, stats(ids).regen)
         close(108.8f, CombatMath.regenerate(100f, 440f, stats(ids).regen, 1f))
         close(440f, CombatMath.regenerate(439f, 440f, .02f, 1f))
     }
     @Test fun runeMultipliesSpellWithoutChangingNormalAttack() {
-        val ids = army("rune_apprentice", "rune_archer", "rune_sage")
-        close(300f, stats(ids.take(1)).spell); close(360f, stats(ids.take(2)).spell); close(420f, stats(ids).spell)
+        val ids = army("rune_apprentice", "rune_archer", "rune_sage", "rune_sentinel")
+        close(330f, stats(ids.take(1)).spell); close(396f, stats(ids.take(2)).spell); close(462f, stats(ids).spell)
         close(46f, stats(ids).attack)
     }
     @Test fun emberMultipliesAttackWithoutChangingHealSpell() {
-        val ids = army("ember_acolyte", "flame_fighter", "core_mage")
+        val ids = army("ember_acolyte", "flame_fighter", "core_mage", "ember_breaker")
         close(48f, stats(ids.take(1)).attack); close(55.2f, stats(ids.take(2)).attack); close(62.4f, stats(ids).attack)
-        close(250f, stats(ids).spell)
+        close(287.5f, stats(ids).spell)
     }
-    @Test fun guardAddsTwelveOrTwentyFourArmor() {
-        val ids = army("copper_guard", "moss_guard", "flame_fighter")
-        close(24f, stats(ids.take(1)).armor); close(36f, stats(ids.take(2)).armor); close(48f, stats(ids).armor)
+    @Test fun guardAddsEightTwentyOrThirtySixArmor() {
+        val ids = army("copper_guard", "moss_guard", "flame_fighter", "rune_sentinel", "ember_breaker")
+        close(32f, stats(ids.take(1)).armor); close(32f, stats(ids.take(2)).armor)
+        close(44f, stats(ids.take(3)).armor); close(60f, stats(ids).armor)
         close(1.2f, stats(ids).interval)
     }
     @Test fun archerAttackSpeedDividesIntervalRatherThanSubtractingPercent() {
         val ids = army("forest_ranger", "rune_archer", "dawn_archer")
-        close(1f, stats(ids.take(1)).interval)
-        close(.8695652f, stats(ids.take(2)).interval); close(.7692308f, stats(ids).interval)
+        close(.9090909f, stats(ids.take(1)).interval)
+        close(.8f, stats(ids.take(2)).interval); close(.7142857f, stats(ids).interval)
         close(64f, stats(ids).attack)
     }
-    @Test fun mageStartsWithTwentyOrFortyMana() {
-        val ids = army("rune_apprentice", "rune_sage", "core_mage")
-        close(0f, stats(ids.take(1)).initialMana)
-        close(20f, stats(ids.take(2)).initialMana); close(40f, stats(ids).initialMana)
+    @Test fun mageStartsWithTwentyThirtyOrFortyMana() {
+        val ids = army("rune_apprentice", "rune_sage", "core_mage", "dawn_oracle", "forest_witch")
+        close(20f, stats(ids.take(1)).initialMana)
+        close(20f, stats(ids.take(2)).initialMana); close(30f, stats(ids.take(3)).initialMana)
+        close(40f, stats(ids).initialMana)
     }
-    @Test fun supportHealingUsesTwentyOrFortyPercent() {
+    @Test fun supportHealingUsesFifteenOrFortyPercent() {
         val ids = army("ember_acolyte", "dawn_priest", "forest_blessing")
-        close(250f, stats(ids.take(1)).spell); close(300f, stats(ids.take(2)).spell); close(350f, stats(ids).spell)
+        close(287.5f, stats(ids.take(1)).spell); close(287.5f, stats(ids.take(2)).spell); close(350f, stats(ids).spell)
         close(510f, stats(ids).maxHealth)
     }
-    @Test fun starsScaleHealthAttackAndSpellAndPreserveOtherStats() {
+    @Test fun starsScaleHealthAndAttackButUseIndependentSkillCurves() {
         val ids = army("rune_apprentice", "rune_archer", "rune_sage")
         val s = stats(ids, 2)
-        close(756f, s.maxHealth); close(82.8f, s.attack); close(756f, s.spell)
+        close(756f, s.maxHealth); close(82.8f, s.attack); close(594f, s.spell)
         val t = stats(ids, 3)
-        close(1360.8f, t.maxHealth); close(149.04f, t.attack); close(1360.8f, t.spell)
+        close(1360.8f, t.maxHealth); close(149.04f, t.attack); close(891f, t.spell)
         close(6f, t.armor); close(1.2f, t.interval); close(20f, t.initialMana)
     }
     @Test fun duplicateStarsAndBenchCannotActivateTraitsAndTierStopsAtThree() {
@@ -108,13 +111,13 @@ class CombatMathTest {
         fighterHealth(battle, 0, 100f)
         repeat(10) { battle.step() }
         val shot = battle.snapshot().events.first { it.kind == CombatEventKind.SHOT && it.actor == 1 }
-        assertEquals(51, shot.amount) // 64 * 100 / 124 = 51.61, event is integer.
+        assertEquals(48, shot.amount) // Solo guard has 24 + 8 armor.
         close(100f, battle.snapshot().fighters.first { it.uid == 1 }.health)
         assertTrue(battle.snapshot().fighters.first { it.uid == 100 }.health < 760f)
     }
     @Test fun battleForestRegenerationUsesMaximumHealthAndDoesNotRevive() {
         for (health in listOf(100f, 439.8f, 0f)) {
-            val units = army("forest_ranger", "moss_guard", "forest_blessing")
+            val units = army("forest_ranger", "moss_guard", "forest_blessing", "forest_witch")
             val battle = Battle(0, Army(0, units),
                 Army(1, listOf(UnitSnapshot(100, "copper_guard", 3, 0))))
             fighterHealth(battle, 0, health)
@@ -122,19 +125,19 @@ class CombatMathTest {
             close(when (health) { 100f -> 100.88f; 0f -> 0f; else -> 440f }, battle.snapshot().fighters[0].health)
         }
     }
-    @Test fun battleMageInitialManaAndMagicSpellIgnoreTargetArmor() {
+    @Test fun battleMagicUsesResistanceAndMageInitialMana() {
         val units = army("rune_apprentice", "rune_sage", "core_mage")
         val battle = Battle(0, Army(0, units),
             Army(1, listOf(UnitSnapshot(100, "copper_guard", 3, 3))))
-        close(40f, battle.snapshot().fighters[0].mana)
+        close(30f, battle.snapshot().fighters[0].mana)
         repeat(50) { battle.step() }
         val spells = battle.snapshot().events.filter { it.actor == 1 && it.kind == CombatEventKind.CAST }
         assertTrue(spells.isNotEmpty())
-        assertTrue(spells.all { it.amount == 360 }) // Two Rune heroes: 300 * 1.2, no armor reduction.
+        assertTrue(spells.all { it.amount in 337..338 }) // 300 * 1.2 * 1.2 / 1.28; armor remains separate.
     }
-    @Test fun actualArcherAttackCountsRetainFifteenAndThirtyPercentOverSixtySeconds() {
+    @Test fun actualArcherAttackCountsRetainTenTwentyFiveAndFortyPercentOverSixtySeconds() {
         val ids = army("forest_ranger", "rune_archer", "dawn_archer")
-        for ((count, expected) in listOf(1 to 60, 2 to 69, 3 to 78)) {
+        for ((count, expected) in listOf(1 to 66, 2 to 75, 3 to 84)) {
             val battle = Battle(0, Army(0, ids.take(count)),
                 Army(1, listOf(UnitSnapshot(100, "rune_apprentice", 1, 3))), limit = 65f)
             // Durable inactive target isolates attack timing without killing the target.
@@ -142,6 +145,8 @@ class CombatMathTest {
             val target = fighters.last()!!
             target.javaClass.getDeclaredField("shield").apply { isAccessible = true }.set(target, 1_000_000f)
             target.javaClass.getDeclaredField("cooldown").apply { isAccessible = true }.set(target, 1_000_000f)
+            // Mana now casts independently of attack cooldown; disable target spell damage too.
+            target.javaClass.getDeclaredField("spell").apply { isAccessible = true }.set(target, 0f)
             repeat(600) { battle.step() }
             assertNull(battle.outcome)
             assertEquals(expected, battle.snapshot().fighters.first { it.uid == 1 }.attacks)

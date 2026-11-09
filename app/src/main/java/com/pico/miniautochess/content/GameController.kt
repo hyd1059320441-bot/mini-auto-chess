@@ -14,22 +14,30 @@ class GameController {
         private set
     var selectedUid by mutableStateOf<Int?>(null)
         private set
+    var isDragging by mutableStateOf(false)
+        private set
+    var dragOverShop by mutableStateOf(false)
+        private set
     var notice by mutableStateOf("点选后点棋格，或按住棋子拖动、松手落格")
         private set
     var sceneReady by mutableStateOf(false)
     var loading by mutableStateOf("正在布置棋会")
     var showRules by mutableStateOf(false)
+    var showOdds by mutableStateOf(false)
+    var musicEnabled by mutableStateOf(true)
+        private set
     private var uiTime = 0f
     private var priorPhase = Phase.MENU
     private var sceneSnapshot = ui
     private var disposed = false
-    private var foreground = true
+    var isForeground = true
+        private set
     private var discardNextDelta = true
     private var loggedCombatRound = -1
     var scene: ChessScene? = null
 
     fun frame(dt: Float) {
-        if (disposed || !sceneReady || !foreground || !dt.isFinite() || dt < 0) return
+        if (disposed || !sceneReady || !isForeground || !dt.isFinite() || dt < 0) return
         // Initial loading and returning from the background must not catch up
         // unattended time. Foreground UI stalls are elapsed playing time.
         val step = if (discardNextDelta) 0f else dt
@@ -47,8 +55,10 @@ class GameController {
         if (fresh.phase != priorPhase) {
             if (priorPhase == Phase.BATTLE) logCombat(fresh)
             drag.cancel()
+            isDragging = false; dragOverShop = false
             selectedUid = null
             scene?.selection(null)
+            if (fresh.phase == Phase.FINISHED) { showRules = false; showOdds = false }
             notice = fresh.message
             Log.i("JadeChess", "phase=${fresh.phase} round=${fresh.round} time=${fresh.elapsed} humanArmy=${fresh.human.deployed}/${fresh.human.level} bench=${fresh.human.units.count { !it.onBoard }}")
             priorPhase = fresh.phase
@@ -77,9 +87,9 @@ class GameController {
     }
     fun start(): Boolean {
         loggedCombatRound = -1
-        clearSelection(); showRules = false
+        clearSelection(); showRules = false; showOdds = false
         val ok = perform { engine.start() }
-        if (ok) Log.i("JadeChessResults", "START_SHOP_READY phase=${ui.phase} round=${ui.round} cards=${ui.human.shop.count { it != null }} elapsed=${ui.elapsed}")
+        if (ok) Log.i("JadeChessResults", "START_SHOP_READY seed=${engine.currentMatchSeed} phase=${ui.phase} round=${ui.round} cards=${ui.human.shop.count { it != null }} elapsed=${ui.elapsed}")
         return ok
     }
     fun clearSelection() { selectedUid = null; scene?.selection(null) }
@@ -87,7 +97,7 @@ class GameController {
         if (loggedCombatRound == state.round) return
         loggedCombatRound = state.round
         state.battles.forEach { b ->
-            Log.i("JadeChessCombat", "round=${state.round} battle=${b.id} elapsed=${b.elapsed} outcome=${b.outcome} fighters=" +
+            Log.i("JadeChessCombat", "round=${state.round} battle=${b.id} elapsed=${b.elapsed} wallElapsed=${b.wallElapsed} speed=${b.speedMultiplier} outcome=${b.outcome} fighters=" +
                 b.fighters.joinToString(";") { "${it.uid}:${it.heroId}:attacks=${it.attacks}:skills=${it.skills}:first=${it.firstAttackTime}:blocked=${it.maxBlockedSeconds}" })
         }
     }
@@ -102,7 +112,7 @@ class GameController {
     fun autoPlay() { cancelDrag(); selectedUid = null; engine.setAutoPlay(!engine.autoPlayHuman); notice = if (engine.autoPlayHuman) "棋手托管：按相同经济规则经营" else "已接回经营"; publish() }
     fun background() {
         cancelDrag()
-        foreground = false
+        isForeground = false
         discardNextDelta = true
         if (engine.phase != Phase.MENU && engine.phase != Phase.FINISHED) {
             engine.setPaused(true)
@@ -111,17 +121,29 @@ class GameController {
         }
         scene?.silenceAudio()
     }
-    fun foreground() { foreground = true; discardNextDelta = true }
+    fun foreground() { isForeground = true; discardNextDelta = true }
+    fun toggleMusic() {
+        musicEnabled = !musicEnabled
+        scene?.syncMusic()
+    }
     fun selectUnit(uid: Int) {
-        if (drag.uid != null || engine.phase != Phase.PREPARATION || engine.paused || engine.autoPlayHuman) return
+        if (drag.uid != null || !engine.canEditUnit(0, uid) || engine.autoPlayHuman) return
         val p = engine.snapshot().human
         val unit = p.units.firstOrNull { it.uid == uid } ?: return
+        if (selectedUid != null && selectedUid != uid) {
+            selectSlot(unit.slot)
+            return
+        }
         selectedUid = if (selectedUid == uid) null else uid
         notice = if (selectedUid == null) "取消选择" else "${unit.hero.name}：点目标格，或按住拖动后松手"
         scene?.selection(selectedUid)
     }
     fun selectSlot(slot: Int) {
-        if (engine.phase != Phase.PREPARATION || engine.paused || engine.autoPlayHuman) return
+        if (engine.phase !in listOf(Phase.PREPARATION, Phase.BATTLE, Phase.TRANSITION) || engine.paused || engine.autoPlayHuman) return
+        if (engine.phase != Phase.PREPARATION && slot >= 0) {
+            notice = "交战阵容已锁定，请选择备战席"
+            return
+        }
         val uid = selectedUid
         val occupant = engine.snapshot().human.units.firstOrNull { it.slot == slot }
         if (uid == null) {
@@ -138,17 +160,32 @@ class GameController {
     fun beginDrag(uid: Int) {
         if (drag.begin(uid)) {
             selectedUid = uid
-            notice = "拖动${engine.snapshot().human.units.first { it.uid == uid }.hero.name}，松手放入己方棋格或备战席"
+            isDragging = true; dragOverShop = false
+            showRules = false; showOdds = false
+            notice = "拖动${engine.snapshot().human.units.first { it.uid == uid }.hero.name}，松手落格；拖到商店松手卖出"
             scene?.selection(uid)
         }
     }
+    fun updateDragPreview(overShop: Boolean) {
+        isDragging = drag.uid != null
+        val selling = isDragging && overShop
+        if (dragOverShop == selling) return
+        dragOverShop = selling
+        val unit = engine.snapshot().human.units.firstOrNull { it.uid == drag.uid } ?: return
+        notice = if (selling) "松手卖出${unit.hero.name} · 返还 ${unit.value} 金币"
+            else if (engine.phase == Phase.PREPARATION) "松手落入己方棋格或备战席；拖到商店松手卖出"
+            else "交战期间只能整理备战席；拖到商店松手卖出"
+    }
     fun releaseDrag() {
         if (drag.uid == null) return
-        perform { drag.release() }
+        val sell = scene?.isDragOverShop() == true
+        isDragging = false; dragOverShop = false
+        perform { drag.release(sell) }
         selectedUid = null
         scene?.selection(null)
     }
     fun cancelDrag() {
+        isDragging = false; dragOverShop = false
         if (drag.uid == null) return
         drag.cancel(); selectedUid = null
         notice = "拖动已取消，棋子回到原位"

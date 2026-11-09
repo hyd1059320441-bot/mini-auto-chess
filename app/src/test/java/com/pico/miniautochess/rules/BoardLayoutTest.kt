@@ -4,6 +4,15 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class BoardLayoutTest {
+    @Test fun shopDropRegionIncludesItsEdgesAndRejectsOutsideAndInvalidPoints() {
+        val region = BoardLayout.DropRegion(-.5f, .5f, 1.4f, 1.8f)
+        for (x in listOf(-.5f, 0f, .5f)) for (z in listOf(1.4f, 1.6f, 1.8f))
+            assertTrue(region.contains(BoardLayout.Point(x, z)))
+        for (p in listOf(BoardLayout.Point(.501f, 1.6f), BoardLayout.Point(0f, 1.399f),
+            BoardLayout.Point(0f, BoardLayout.BENCH_Z), BoardLayout.Point(Float.NaN, 1.6f),
+            BoardLayout.Point(0f, Float.POSITIVE_INFINITY)))
+            assertFalse(region.contains(p))
+    }
     @Test fun allThirtyTwoCellsAndEightBenchSlotsRoundTrip() {
         (0 until Catalog.BOARD_SIZE).toList().plus((-8..-1).toList()).forEach { slot ->
             val p = BoardLayout.position(slot)

@@ -1,0 +1,141 @@
+{
+  "games": 10752,
+  "upgrades": {
+    "2vs1": {
+      "games": 64,
+      "wins": 64,
+      "losses": 0,
+      "draws": 0,
+      "timeouts": 6
+    },
+    "3vs2": {
+      "games": 64,
+      "wins": 64,
+      "losses": 0,
+      "draws": 0,
+      "timeouts": 6
+    }
+  },
+  "costs": {
+    "2vs1": {
+      "卫士": {
+        "games": 48,
+        "wins": 48,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "射手": {
+        "games": 12,
+        "wins": 12,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "法师": {
+        "games": 24,
+        "wins": 12,
+        "losses": 0,
+        "draws": 12,
+        "timeouts": 0
+      },
+      "辅助": {
+        "games": 12,
+        "wins": 12,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 12
+      }
+    },
+    "3vs2": {
+      "卫士": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 12
+      },
+      "射手": {
+        "games": 12,
+        "wins": 12,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "法师": {
+        "games": 48,
+        "wins": 48,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "辅助": {
+        "games": 12,
+        "wins": 6,
+        "losses": 6,
+        "draws": 0,
+        "timeouts": 12
+      }
+    },
+    "3vs1": {
+      "卫士": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "射手": {
+        "games": 12,
+        "wins": 12,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "法师": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      },
+      "辅助": {
+        "games": 12,
+        "wins": 12,
+        "losses": 0,
+        "draws": 0,
+        "timeouts": 0
+      }
+    }
+  },
+  "trio_costs": {
+    "2vs1": {
+      "games": 180,
+      "wins": 132,
+      "losses": 45,
+      "draws": 3,
+      "timeouts": 85
+    },
+    "3vs2": {
+      "games": 180,
+      "wins": 177,
+      "losses": 3,
+      "draws": 0,
+      "timeouts": 54
+    },
+    "3vs1": {
+      "games": 150,
+      "wins": 150,
+      "losses": 0,
+      "draws": 0,
+      "timeouts": 35
+    }
+  },
+  "equal_9_gold_solo": {
+    "games": 100,
+    "wins": 72,
+    "losses": 28,
+    "draws": 0,
+    "timeouts": 16
+  }
+}

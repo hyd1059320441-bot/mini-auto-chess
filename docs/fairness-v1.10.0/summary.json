@@ -1,0 +1,29 @@
+{
+  "reference_version": "V1.9.0",
+  "current_version": "V1.10.0",
+  "seeds": [1001, 1400],
+  "ai_styles": ["FLEX", "FLEX", "FLEX", "FLEX"],
+  "finish_on_human_elimination": false,
+  "production_finish_on_human_elimination": true,
+  "same_policy_at_all_seats": true,
+  "invariants_checked_every_step": true,
+  "seat_names": ["你（托管）", "松隐", "灯岚", "赤砂"],
+  "before": {
+    "games": 400,
+    "champions": [113, 100, 96, 91],
+    "champion_pct": [28.25, 25, 24, 22.75],
+    "battle_wins": [1967, 1876, 1939, 1952],
+    "battle_matches": [3867, 3888, 3883, 3894]
+  },
+  "after": {
+    "games": 400,
+    "champions": [110, 87, 98, 105],
+    "champion_pct": [27.5, 21.75, 24.5, 26.25],
+    "battle_wins": [1940, 1813, 1952, 1957],
+    "battle_matches": [3838, 3833, 3872, 3850]
+  },
+  "scope": "same-policy seat comparison after adding shared win/loss streak rewards; excludes human skill and style-strength comparison",
+  "hero_combat_values_changed_this_revision": false,
+  "economy_changed_this_revision": true,
+  "perfect_balance_claim": false
+}

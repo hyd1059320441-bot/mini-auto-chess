@@ -1,0 +1,154 @@
+{
+  "version": "V1.9.0",
+  "version_code": 14,
+  "sdk": "6.1.9",
+  "device": "PB331XPGL6040019G",
+  "running": true,
+  "pid": 25239,
+  "apk_sha256": "678525d4fb51fc35aea77808d9b8787890d9e66ecc6bbb78fbf6aededbad794b",
+  "installed_matches": true,
+  "build": "PASS",
+  "tests_passed": 112,
+  "source_gate": "PASS",
+  "experimental_api_opt_in_gate": "PASS",
+  "source_gate_advisories": [
+    {
+      "evidence": "import com.pico.spatial.core.container.SpatialViewContent",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 14,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    },
+    {
+      "evidence": "val hpBack: Entity, val manaBack: Entity, val label: Entity, val ring: Entity,",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 95,
+      "rationale": "Foreground-facing details appear in a scene with depth transforms but no visible body/detail depth contract; review whether Z is being used only for front-view visibility.",
+      "rule": "surface-detail-depth-without-body-contract"
+    }
+  ],
+  "scene_ready": true,
+  "scene_offset_meters": [
+    0,
+    0,
+    -0.3
+  ],
+  "hero_visual_scale": 0.85,
+  "board_height_y_meters": 0.265,
+  "shop_separated": true,
+  "occupied_drag_targets": 40,
+  "fatal_exception_observed": false,
+  "fatal_signal_observed": false,
+  "platform_error_tags_preserved": {
+    "libprocessgroup": 1,
+    "o.miniautochess": 25,
+    "ashmem  ": 1,
+    "SimpleTimeTrace": 4,
+    "SPPackGlue": 2,
+    "SPC-mini22-IPCClientService": 22,
+    "SPC-mini22-MetricsManager": 8,
+    "SPC-mini22-SpatialContext": 2,
+    "SPC-mini22-AsyncTaskHandlerRegister": 1,
+    "SPC-mini22-SpatialSession": 4,
+    "SPC-mini22-Global": 1,
+    "SPC-mini22-PerfProfiler": 2,
+    "PxrNotificationClient": 1,
+    "PxrConfigServiceClient": 1,
+    "SpatialPack": 18,
+    "SYS_DEFAULT_LOG": 3,
+    "PXR-HWUI": 1,
+    "SpatialPack_SceneInspector": 1,
+    "DMABUFHEAPS": 152,
+    "KERNEL  ": 2,
+    "MediaCodec": 20
+  },
+  "balance_inherited_from": "V1.8.0",
+  "balance_tournament_rerun": false,
+  "same_style_seat_fairness": {
+    "seeds": [
+      1001,
+      1400
+    ],
+    "ai_styles": [
+      "FLEX",
+      "FLEX",
+      "FLEX",
+      "FLEX"
+    ],
+    "finish_on_human_elimination": false,
+    "production_finish_on_human_elimination": true,
+    "same_policy_at_all_seats": true,
+    "invariants_checked_every_step": true,
+    "seat_names": [
+      "你（托管）",
+      "松隐",
+      "灯岚",
+      "赤砂"
+    ],
+    "before": {
+      "games": 400,
+      "champions": [
+        83,
+        98,
+        99,
+        120
+      ],
+      "champion_pct": [
+        20.75,
+        24.5,
+        24.75,
+        30
+      ],
+      "battle_wins": [
+        1874,
+        1933,
+        1925,
+        2031
+      ],
+      "battle_matches": [
+        3874,
+        3883,
+        3858,
+        3949
+      ]
+    },
+    "after": {
+      "games": 400,
+      "champions": [
+        113,
+        100,
+        96,
+        91
+      ],
+      "champion_pct": [
+        28.25,
+        25,
+        24,
+        22.75
+      ],
+      "battle_wins": [
+        1967,
+        1876,
+        1939,
+        1952
+      ],
+      "battle_matches": [
+        3867,
+        3888,
+        3883,
+        3894
+      ]
+    },
+    "scope": "same-policy seat comparison; excludes human skill and default randomized style-strength comparison",
+    "hero_balance_changes_this_revision": false,
+    "perfect_balance_claim": false
+  },
+  "simulation_matches": 100,
+  "strategy_simulation_matches": 150,
+  "a11y_source_passed": false,
+  "a11y_disposition": "SDK6.1.9 lacks Spatial AccessibilityComponent; two existing Attachment owners unresolved; native Compose semantics retained",
+  "visual": "UNOBSERVED",
+  "interaction_verification": "user_headset",
+  "runtime_scope": "installation_liveness_menu_scene_numeric_geometry",
+  "charged_model_tasks": 0
+}

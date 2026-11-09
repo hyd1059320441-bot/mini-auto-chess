@@ -1,0 +1,73 @@
+{
+  "version": "V1.7.0",
+  "command": "./gradlew :app:assembleDebug :app:testDebugUnitTest --console=plain",
+  "tests": 92,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "suites": [
+    {
+      "name": "com.pico.miniautochess.rules.BoardLayoutTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.039"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMathTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.018"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMovementTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.082"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.ExpansionTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.348"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.GameEngineTest",
+      "tests": "46",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.09"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.PresentationTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.006"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.SimulationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.834"
+    }
+  ],
+  "sale": "bench_and_board_star1/2/3_exact_money_and_pool_return_once; cancel_pause_phase_autoplay_source_move_prevent_sale",
+  "overtime": "25s_boundary; 2x_fixed_combat_steps; wall_time_and_combat_time_pause; view_switch_and_ghost_do_not_repay",
+  "late_rounds": "three_players_round10_to12_mirror_rotates; level_odds_test_rounds1/2/5/10/11/20/50",
+  "simulation_matches": 100,
+  "simulation_report": "simulation-v1.7-100.md",
+  "finish_condition_verified": "all_simulated_matches_finish_with_at_most_one_living_player"
+}

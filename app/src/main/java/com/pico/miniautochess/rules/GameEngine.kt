@@ -9,48 +9,67 @@ data class ActionResult(val ok: Boolean, val message: String)
 data class PlayerSnapshot(
     val id: Int, val name: String, val health: Int, val gold: Int, val level: Int, val xp: Int,
     val wins: Int, val units: List<UnitSnapshot>, val shop: List<String?>,
-    val eliminatedRound: Int?,
+    val eliminatedRound: Int?, val streak: Int = 0,
 ) {
     val alive get() = eliminatedRound == null
     val deployed get() = units.count { it.onBoard }
     val traits get() = traits(units)
     val xpRequired get() = if (level < Catalog.MAX_LEVEL) Catalog.levelXp[level - 1] else 0
     val xpRemaining get() = (xpRequired - xp).coerceAtLeast(0)
+    val streakLabel get() = Catalog.streakLabel(streak)
+    val streakGold get() = Catalog.streakGold(streak)
 }
 data class Ranking(val playerId: Int, val name: String, val rank: Int, val health: Int, val wins: Int, val value: Int, val eliminatedRound: Int?)
 data class RoundResult(
     val playerId: Int, val result: String, val damage: Int, val income: Int, val interest: Int,
     val winGold: Int = 0, val xpGain: Int = 0, val roundPaid: Boolean = false,
     val baseDamage: Int = 0, val survivorPopulation: Int = 0, val interestBalance: Int = 0,
+    val streak: Int = 0, val streakGold: Int = 0,
 ) {
     val nominalDamage get() = baseDamage + survivorPopulation
+    val streakLabel get() = Catalog.streakLabel(streak)
 }
 data class MatchSnapshot(
     val revision: Int, val phase: Phase, val round: Int, val secondsLeft: Float, val elapsed: Float,
     val players: List<PlayerSnapshot>, val battles: List<BattleSnapshot>, val watchedBattle: Int,
     val ranking: List<Ranking>, val results: List<RoundResult>, val message: String,
     val paused: Boolean, val autoPlayHuman: Boolean,
+    val pool: Map<String, Int>,
 ) {
     val human get() = players.first()
 }
+enum class AiStyle { FLEX, REROLL, LEVEL }
 
 /**
  * Single-threaded deterministic rule owner. Call on the app main thread.
  * No Android, Compose, SDK, account, rendering or device dependency.
  */
-class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
+class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false,
+    aiStyles: List<AiStyle>? = null,
+    private val finishOnHumanElimination: Boolean = true) {
+    private val configuredStyles = aiStyles?.toList()
+    init { require(configuredStyles == null || configuredStyles.size == 4) }
+    private var activeStyles = configuredStyles ?: List(4) { AiStyle.FLEX }
+    private var matchNumber = 0
+    var currentMatchSeed = seed
+        private set
+    private var firstShopSeat = 0
+    private var aiTiming = Random(seed)
+    private val aiSteps = IntArray(4) { 4 }
+    private val aiNextAction = FloatArray(4)
     private class Player(val id: Int, val name: String) {
         var health = Catalog.START_HEALTH
         var gold = Catalog.START_GOLD
         var level = 3
         var xp = 0
         var wins = 0
+        var streak = 0
         val units = mutableListOf<UnitSnapshot>()
         val shop = MutableList<String?>(Catalog.SHOP_SIZE) { null }
         var eliminatedRound: Int? = null
         var finalValue = 0
         fun snapshot() = PlayerSnapshot(id, name, health, gold, level, xp, wins,
-            units.toList(), shop.toList(), eliminatedRound)
+            units.toList(), shop.toList(), eliminatedRound, streak)
     }
     private var random = Random(seed)
     private var nextUid = 1
@@ -59,11 +78,10 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     val stateRevision get() = revision
     private val players = (0..3).map { Player(it, listOf("你", "松隐", "灯岚", "赤砂")[it]) }
     private val pool = Catalog.heroList.associate { it.id to Catalog.poolSize(it.cost) }.toMutableMap()
-    private var previousArmies = emptyMap<Int, Army>()
     private var battles = emptyList<Battle>()
     private val resolvedBattles = mutableSetOf<Int>()
     private var timer = 0f
-    private var accumulator = 0f
+    private var accumulator = 0.0
     var phase = Phase.MENU
         private set
     var round = 0
@@ -76,24 +94,30 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         private set
     var autoPlayHuman = autoPlay
         private set
-    var message = "1 位真人 · 3 位棋手 · 十回合青玉棋会"
+    var message = "1 位真人 · 3 位棋手 · 你淘汰或夺冠即结束"
         private set
     private var results = emptyList<RoundResult>()
     private val initialAutoPlay = autoPlay
 
     fun start(): ActionResult {
         if (phase != Phase.MENU && phase != Phase.FINISHED) return fail("对局已经开始")
-        random = Random(seed)
+        currentMatchSeed = seed + matchNumber++ * -1640531527
+        random = Random(currentMatchSeed)
+        aiTiming = Random(currentMatchSeed xor 0x51A7C3)
+        activeStyles = configuredStyles ?: (listOf(AiStyle.FLEX) +
+            listOf(AiStyle.FLEX, AiStyle.REROLL, AiStyle.LEVEL).shuffled(aiTiming))
+        firstShopSeat = aiTiming.nextInt(4)
+        aiSteps.fill(4)
         nextUid = 1
         pool.clear()
         Catalog.heroList.forEach { pool[it.id] = Catalog.poolSize(it.cost) }
         players.forEach {
             it.health = Catalog.START_HEALTH; it.gold = Catalog.START_GOLD; it.level = 3
-            it.xp = 0; it.wins = 0; it.units.clear(); it.shop.fill(null)
+            it.xp = 0; it.wins = 0; it.streak = 0; it.units.clear(); it.shop.fill(null)
             it.eliminatedRound = null; it.finalValue = 0
         }
-        battles = emptyList(); resolvedBattles.clear(); previousArmies = emptyMap(); results = emptyList()
-        timer = 0f; elapsed = 0f; accumulator = 0f; round = 0; watchedBattle = 0
+        battles = emptyList(); resolvedBattles.clear(); results = emptyList()
+        timer = 0f; elapsed = 0f; accumulator = 0.0; round = 0; watchedBattle = 0
         paused = false; autoPlayHuman = initialAutoPlay
         beginPreparation()
         return success("商店已就绪，招募英雄后拖入己方棋格")
@@ -101,7 +125,10 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     fun setPaused(value: Boolean) { paused = value; revision++ }
     fun setAutoPlay(value: Boolean) {
         autoPlayHuman = value
-        if (value && phase == Phase.PREPARATION && players[0].eliminatedRound == null) manageAi(0)
+        if (phase == Phase.PREPARATION && players[0].eliminatedRound == null) {
+            aiSteps[0] = if (value) 0 else 4
+            aiNextAction[0] = elapsed + 1f
+        }
         revision++
     }
     fun watch(index: Int): ActionResult {
@@ -113,9 +140,9 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     fun advance(seconds: Float) {
         require(seconds.isFinite() && seconds >= 0f)
         if (paused || phase == Phase.MENU || phase == Phase.FINISHED) return
-        accumulator += seconds
-        while (accumulator + .00001f >= Catalog.STEP && phase != Phase.FINISHED && !paused) {
-            accumulator -= Catalog.STEP
+        accumulator += seconds.toDouble()
+        while (accumulator + .00001 >= Catalog.STEP.toDouble() && phase != Phase.FINISHED && !paused) {
+            accumulator -= Catalog.STEP.toDouble()
             elapsed += Catalog.STEP
             tick()
         }
@@ -124,8 +151,12 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         if (phase == Phase.BATTLE) {
             battles.forEach { it.step() }
             battles.filter { it.outcome != null && it.id !in resolvedBattles }.forEach(::resolveBattle)
-            if (battles.all { it.outcome != null }) settle()
+            if (finishOnHumanElimination && players[0].eliminatedRound != null) {
+                payRoundResults()
+                finishMatch()
+            } else if (battles.all { it.outcome != null }) settle()
         } else {
+            if (phase == Phase.PREPARATION) runAiPreparation()
             timer = (timer - Catalog.STEP).coerceAtLeast(0f)
             if (timer < .001f) when (phase) {
                 Phase.TRANSITION -> beginPreparation()
@@ -142,14 +173,25 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         message = "第 $round 回合：准备阵容，卫士在前、射手和法师在后"
         val preparationMessage = message
         // Rotating shop order prevents one AI always drawing first from the shared pool.
-        val order = (0..3).map { (it + round - 1) % 4 }.filter { players[it].eliminatedRound == null }
+        val order = (0..3).map { (it + firstShopSeat + round - 1) % 4 }.filter { players[it].eliminatedRound == null }
+        players.filter { it.eliminatedRound == null }.forEach { p ->
+            merge(p) // Purchases made in battle may now merge with locked board copies.
+            fillEmptyPopulation(p)
+        }
         order.forEach { fillShop(players[it]) }
-        order.filter { it != 0 || autoPlayHuman }.forEach { manageAi(it) }
+        aiSteps.fill(4)
+        order.filter { it != 0 || autoPlayHuman }.forEach {
+            aiSteps[it] = 0
+            aiNextAction[it] = elapsed + 2f + aiTiming.nextFloat() * 2f
+        }
         // AI purchases must not replace the human's preparation instruction.
         message = preparationMessage
         revision++
     }
     private fun beginBattle() {
+        // Ready accelerates the common preparation boundary; pending bot work
+        // still pays through the same APIs before armies are locked.
+        runAiPreparation(finish = true)
         val alive = players.filter { it.eliminatedRound == null }.map { it.id }
         alive.forEach { fillEmptyPopulation(players[it]) }
         val armies = alive.associateWith { id ->
@@ -164,8 +206,8 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         } else if (alive.size == 3) {
             val solo = alive[(round - 1) % 3]
             val pair = alive.filter { it != solo }
-            val donor = pair[(round - 1) % 2]
-            val source = previousArmies[donor] ?: armies.getValue(donor)
+            val donor = pair[random.nextInt(pair.size)]
+            val source = armies.getValue(donor)
             // Ghost identifiers cannot collide with real fighters in the watched scene.
             val ghost = Army(donor, source.units.map { it.copy(uid = -it.uid) }, ghost = true)
             listOf(Battle(0, armies.getValue(pair[0]), armies.getValue(pair[1])),
@@ -173,11 +215,9 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         } else if (alive.size == 2) {
             listOf(Battle(0, armies.getValue(alive[0]), armies.getValue(alive[1])))
         } else {
-            phase = Phase.FINISHED
-            message = "棋会结束"
+            finishMatch()
             return
         }
-        previousArmies = armies
         battles = pairs
         results = emptyList()
         resolvedBattles.clear()
@@ -203,11 +243,14 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
             p.health = (p.health - damage).coerceAtLeast(0)
             p.gold += winGold
             if (won) p.wins++
+            p.streak = if (won) p.streak.coerceAtLeast(0) + 1
+                else if (lost) p.streak.coerceAtMost(0) - 1 else 0
             results = results + RoundResult(p.id, if (won) "胜利" else if (lost) "落败" else "平局",
-                damage, winGold, 0, winGold = winGold, baseDamage = loss.base, survivorPopulation = loss.population)
+                damage, winGold, 0, winGold = winGold, baseDamage = loss.base, survivorPopulation = loss.population,
+                streak = p.streak, streakGold = Catalog.streakGold(p.streak))
             if (p.health == 0) eliminate(p)
             if (p.id == 0) message = if (p.eliminatedRound != null)
-                "你已淘汰 · 本场落败，生命归零 · 可继续观战"
+                "你已淘汰 · 本场落败，生命归零"
                 else if (won) "本回合胜利 · +1 金币已到账"
                 else if (lost) "落败：回合${loss.base} + 存活人口${loss.population} = ${loss.nominal} · 已扣 $damage 生命"
                 else "本回合平局 · 不扣生命"
@@ -222,32 +265,41 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
             releaseShop(p)
         }
     }
-    private fun settle() {
-        check(phase == Phase.BATTLE && resolvedBattles.size == battles.size)
+    /** Pay only completed real-seat results, once, including the eliminated human. */
+    private fun payRoundResults() {
         // Interest uses the balance including the immediately paid victory coin.
         results = results.map { result ->
+            if (result.roundPaid) return@map result
             val p = players[result.playerId]
-            check(!result.roundPaid)
             val interestBalance = p.gold
             val interest = Catalog.interest(interestBalance)
-            val income = Catalog.BASE_INCOME + interest
+            val income = Catalog.BASE_INCOME + interest + result.streakGold
             p.gold += income
             val xpGain = if (p.level < Catalog.MAX_LEVEL) Catalog.ROUND_XP else 0
             addXp(p, xpGain)
             result.copy(income = result.income + income, interest = interest, xpGain = xpGain,
                 roundPaid = true, interestBalance = interestBalance)
         }
-        if (players.count { it.eliminatedRound == null } <= 1 || round >= Catalog.MAX_ROUNDS) {
-            phase = Phase.FINISHED
-            timer = 0f
-            val position = ranking().first { it.playerId == 0 }.rank
-            message = if (position == 1) "棋会结束 · 你获得第 1 名！" else "棋会结束 · 你获得第 $position 名"
+    }
+    private fun finishMatch() {
+        phase = Phase.FINISHED
+        timer = 0f
+        val position = ranking().first { it.playerId == 0 }.rank
+        message = if (players[0].eliminatedRound != null)
+            "你已淘汰 · 本局结束 · 第 $position 名"
+        else "棋会结束 · 你获得第 $position 名！"
+    }
+    private fun settle() {
+        check(phase == Phase.BATTLE && resolvedBattles.size == battles.size)
+        payRoundResults()
+        if (players.count { it.eliminatedRound == null } <= 1) {
+            finishMatch()
         } else {
             phase = Phase.TRANSITION
             timer = Catalog.TRANSITION_SECONDS
             message = results.firstOrNull { it.playerId == 0 }?.let {
-                "${it.result} · 已扣 ${it.damage}生命 · 收入 ${it.income}金（基础5 / 胜利${it.winGold} / 利息${it.interest}）· 经验 +${it.xpGain}"
-            } ?: "你已离席，可以继续观察其他棋手"
+                "${it.result} · 已扣 ${it.damage}生命 · 收入 ${it.income}金（基础5 / 胜利${it.winGold} / ${it.streakLabel}+${it.streakGold} / 利息${it.interest}）· 经验 +${it.xpGain}"
+            } ?: "本轮结算完成"
         }
     }
     fun ready(): ActionResult {
@@ -258,10 +310,15 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     }
     private fun canAct(id: Int): String? = when {
         id !in players.indices -> "棋手不存在"
-        phase != Phase.PREPARATION -> "仅备战阶段可操作"
+        phase !in listOf(Phase.PREPARATION, Phase.BATTLE, Phase.TRANSITION) -> "当前阶段无法经营"
         paused -> "请先继续对局"
         players[id].eliminatedRound != null -> "该棋手已经离席"
         else -> null
+    }
+    fun canEditUnit(id: Int, uid: Int): Boolean {
+        if (canAct(id) != null) return false
+        val unit = players[id].units.firstOrNull { it.uid == uid } ?: return false
+        return phase == Phase.PREPARATION || !unit.onBoard
     }
     fun buy(id: Int, index: Int): ActionResult {
         canAct(id)?.let { return fail(it) }
@@ -271,20 +328,25 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         val def = Catalog.hero(heroId)
         if (p.gold < def.cost) return fail("金币不足，需要 ${def.cost} 金币")
         val freeBench = (-1 downTo -Catalog.BENCH_SIZE).firstOrNull { slot -> p.units.none { it.slot == slot } }
-        val immediateMerge = p.units.count { it.heroId == heroId && it.star == 1 } >= 2
+        val immediateMerge = p.units.count { it.heroId == heroId && it.star == 1 &&
+            (phase == Phase.PREPARATION || !it.onBoard) } >= 2
         if (freeBench == null && !immediateMerge) return fail("备战席已满，请先上场或卖出棋子")
         p.gold -= def.cost
         p.shop[index] = null
         p.units.add(UnitSnapshot(nextUid++, heroId, 1, freeBench ?: -99))
+        val beforeDeployed = p.units.count { it.onBoard }
         val merged = merge(p)
-        return success(if (merged) "${def.name}完成升星" else "已招募${def.name}，点击备战席棋子后选择上场格")
+        // A merge can consume deployed copies. Fill those vacancies from the bench.
+        if (phase == Phase.PREPARATION && p.units.count { it.onBoard } < beforeDeployed) fillEmptyPopulation(p)
+        return success(if (merged) "${def.name}完成升星 · 上场${p.units.count { it.onBoard }}/${p.level}" else "已招募${def.name}，点击备战席棋子后选择上场格")
     }
     private fun merge(p: Player): Boolean {
         var changed = false
+        fun eligible(unit: UnitSnapshot) = phase == Phase.PREPARATION || !unit.onBoard
         for (star in 1..2) {
             for (def in Catalog.heroList) {
-                while (p.units.count { it.heroId == def.id && it.star == star } >= 3) {
-                    val group = p.units.filter { it.heroId == def.id && it.star == star }
+                while (p.units.count { it.heroId == def.id && it.star == star && eligible(it) } >= 3) {
+                    val group = p.units.filter { it.heroId == def.id && it.star == star && eligible(it) }
                         .sortedWith(compareBy<UnitSnapshot> { !it.onBoard }
                             .thenBy { it.slot == -99 }.thenBy { it.uid }).take(3)
                     val keep = group.first()
@@ -303,6 +365,8 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         val p = players[id]
         val unit = p.units.firstOrNull { it.uid == uid } ?: return fail("棋子不存在")
         val occupied = p.units.firstOrNull { it.slot == slot && it.uid != uid }
+        if (phase != Phase.PREPARATION && (unit.onBoard || slot >= 0 || occupied?.onBoard == true))
+            return fail("交战阵容已锁定，只能移动或交换备战席棋子")
         val deployedDelta = (if (slot >= 0) 1 else 0) - (if (unit.onBoard) 1 else 0) +
             (if (occupied != null && unit.onBoard) 1 else 0) - (if (occupied?.onBoard == true) 1 else 0)
         if (p.units.count { it.onBoard } + deployedDelta > p.level) return fail("人口已满，请先升级或替换上场棋子")
@@ -314,6 +378,7 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         canAct(id)?.let { return fail(it) }
         val p = players[id]
         val unit = p.units.firstOrNull { it.uid == uid } ?: return fail("棋子不存在")
+        if (phase != Phase.PREPARATION && unit.onBoard) return fail("交战棋子已锁定，只能卖出备战席棋子")
         p.units.remove(unit); p.gold += unit.value
         pool[unit.heroId] = pool.getValue(unit.heroId) + Catalog.copies(unit.star)
         return success("卖出${unit.hero.name}，返还 ${unit.value} 金币")
@@ -332,8 +397,10 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         if (p.level >= Catalog.MAX_LEVEL) return fail("已达到最高人口 7")
         if (p.gold < Catalog.XP_COST) return fail("购买经验需要 4 金币")
         p.gold -= Catalog.XP_COST
+        val before = p.level
         addXp(p, Catalog.XP_GAIN)
-        return success("增加 4 经验，当前人口 ${p.level}")
+        if (p.level > before && phase == Phase.PREPARATION) fillEmptyPopulation(p)
+        return success("增加 4 经验，当前人口 ${p.level}" + if (phase == Phase.PREPARATION) "" else " · 新人口下回合上场")
     }
     private fun addXp(p: Player, amount: Int) {
         p.xp += amount
@@ -344,6 +411,7 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     }
     fun arrange(id: Int): ActionResult {
         canAct(id)?.let { return fail(it) }
+        if (phase != Phase.PREPARATION) return fail("交战阵容已锁定，自动布阵需等下一轮备战")
         arrangeArmy(players[id])
         return success("按强度安排上场，卫士前排、远程后排")
     }
@@ -354,12 +422,13 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     }
     private fun fillShop(p: Player) {
         releaseShop(p)
-        val odds = Catalog.odds(p.level)
         p.shop.indices.forEach { i ->
-            val roll = random.nextInt(100)
-            val cost = if (roll < odds[0]) 1 else if (roll < odds[0] + odds[1]) 2 else 3
-            var candidates = Catalog.heroList.filter { it.cost == cost && pool.getValue(it.id) > 0 }
-            if (candidates.isEmpty()) candidates = Catalog.heroList.filter { pool.getValue(it.id) > 0 }
+            val weights = Catalog.availableWeights(p.level, pool)
+            val weight = weights.sum()
+            if (weight == 0) return@forEach
+            var costTicket = random.nextInt(weight)
+            val cost = weights.indexOfFirst { costTicket -= it; costTicket < 0 } + 1
+            val candidates = Catalog.heroList.filter { it.cost == cost && pool.getValue(it.id) > 0 }
             val total = candidates.sumOf { pool.getValue(it.id) }
             if (total > 0) {
                 var ticket = random.nextInt(total)
@@ -369,27 +438,21 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
             }
         }
     }
-    private fun strength(unit: UnitSnapshot, all: List<UnitSnapshot>): Float {
-        val def = unit.hero
-        val synergy = all.distinctBy { it.heroId }.count { it.hero.faction == def.faction || it.hero.job == def.job }
-        return def.cost * Catalog.starMultiplier(unit.star) * 10f + synergy * 3f
-    }
     /** Lock-time fill only. Manual placements and economy stay intact. */
     private fun fillEmptyPopulation(p: Player) {
         val occupied = p.units.filter { it.onBoard }.map { it.slot }.toMutableSet()
         val missing = (p.level - occupied.size).coerceAtLeast(0)
-        p.units.filter { !it.onBoard }
-            .sortedWith(compareByDescending<UnitSnapshot> { strength(it, p.units) }.thenBy { it.uid })
-            .take(missing).sortedBy { it.hero.job != Job.GUARD }.forEach { unit ->
+        ArmyEvaluator.select(p.units, p.level, p.units.filter { it.onBoard })
+            .filter { !it.onBoard }.take(missing).sortedBy { it.hero.job != Job.GUARD }.forEach { unit ->
                 val slot = BoardLayout.preferredSlots(unit.hero.job == Job.GUARD).first { it !in occupied }
                 occupied.add(slot)
                 replace(p, unit, unit.copy(slot = slot))
             }
     }
     private fun arrangeArmy(p: Player) {
-        val ranked = p.units.sortedWith(compareByDescending<UnitSnapshot> { strength(it, p.units) }.thenBy { it.uid })
-        val selected = ranked.take(p.level)
-        val rest = ranked.drop(p.level)
+        val selected = ArmyEvaluator.select(p.units, p.level)
+        val selectedIds = selected.map { it.uid }.toSet()
+        val rest = p.units.filter { it.uid !in selectedIds }.sortedBy { it.uid }
         val boardSlots = mutableSetOf<Int>()
         val placements = mutableMapOf<Int, Int>()
         selected.sortedBy { it.hero.job != Job.GUARD }.forEach { unit ->
@@ -401,26 +464,45 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         check(rest.size <= Catalog.BENCH_SIZE)
         for (i in p.units.indices) p.units[i] = p.units[i].copy(slot = placements.getValue(p.units[i].uid))
     }
-    private fun manageAi(id: Int) {
+    private fun runAiPreparation(finish: Boolean = false) {
+        val priorMessage = message
+        for (id in players.indices.sortedBy { aiNextAction[it] }) {
+            if (players[id].eliminatedRound != null || id == 0 && !autoPlayHuman) continue
+            while (aiSteps[id] < 4 && (finish || elapsed + .001f >= aiNextAction[id])) {
+                manageAi(id, aiSteps[id]++)
+                aiNextAction[id] = elapsed + .8f + aiTiming.nextFloat() * 1.2f
+            }
+        }
+        message = priorMessage
+    }
+    private fun manageAi(id: Int, step: Int) {
         val p = players[id]
+        val style = activeStyles[id]
         // No cheating: every purchase and reroll goes through the same public rules.
         val budget = p.gold
         val reserve = if (round <= 2) 0 else if (round <= 5 && p.health > 16) 10 else 0
-        val ranked = p.shop.indices.sortedByDescending { i ->
-            val def = p.shop[i]?.let { Catalog.hero(it) } ?: return@sortedByDescending -100
-            p.units.count { it.heroId == def.id } * 30 +
-                p.units.distinctBy { it.heroId }.count { it.hero.faction == def.faction } * 6 + def.cost * 4
-        }
-        ranked.forEach { i ->
-            val heroId = p.shop[i] ?: return@forEach
-            val def = Catalog.hero(heroId)
-            if (p.gold >= def.cost + reserve &&
-                (p.units.size < p.level + 3 || p.units.count { it.heroId == heroId && it.star == 1 } >= 1)) buy(id, i)
+        if (step == 0) {
+            val ranked = p.shop.indices.sortedByDescending { i ->
+                val def = p.shop[i]?.let { Catalog.hero(it) } ?: return@sortedByDescending -100
+                p.units.count { it.heroId == def.id && it.star < 3 } * 30 +
+                    p.units.distinctBy { it.heroId }.count { it.hero.faction == def.faction } * 6 +
+                    when (style) { AiStyle.REROLL -> (4 - def.cost) * 8; AiStyle.LEVEL -> def.cost * 8; else -> def.cost * 4 }
+            }
+            ranked.forEach { i ->
+                val heroId = p.shop[i] ?: return@forEach
+                val def = Catalog.hero(heroId)
+                if (p.gold >= def.cost + reserve &&
+                    (p.units.size < p.level + 3 || p.units.any { it.heroId == heroId && it.star < 3 })) buy(id, i)
+            }
         }
         arrangeArmy(p)
-        if (p.level < Catalog.MAX_LEVEL && p.units.size >= p.level && p.gold >= 4 + reserve) buyXp(id)
+        val levelNow = style != AiStyle.REROLL || p.level >= 5 || round >= 6 || p.health <= 12
+        if (step == 1 && levelNow && p.level < Catalog.MAX_LEVEL && p.units.size >= p.level && p.gold >= 4 + reserve) {
+            buyXp(id)
+            if (style == AiStyle.LEVEL && p.gold >= 8 + reserve) buyXp(id)
+        }
         // At most two refreshes per round; do not burn all gold or award free money.
-        repeat(if (round >= 4) 2 else 0) {
+        if (step in 2..3 && (round >= 4 || style == AiStyle.REROLL && round >= 2)) {
             if (p.gold >= 7 + reserve) {
                 refresh(id)
                 p.shop.indices.sortedByDescending { i ->
@@ -428,7 +510,7 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
                     p.units.count { it.heroId == h && it.star < 3 } * 10 + Catalog.hero(h).cost
                 }.forEach { i ->
                     val h = p.shop[i] ?: return@forEach
-                    val copy = p.units.any { it.heroId == h && it.star == 1 }
+                    val copy = p.units.any { it.heroId == h && it.star < 3 }
                     if (p.gold >= Catalog.hero(h).cost + reserve && (copy || p.units.size < p.level + 2)) buy(id, i)
                 }
             }
@@ -440,6 +522,7 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
     fun assertInvariants() {
         players.forEach { p ->
             check(p.gold >= 0 && p.level in 3..7 && p.health in 0..Catalog.START_HEALTH)
+            check(kotlin.math.abs(p.streak) <= round)
             check(p.units.count { it.onBoard } <= p.level)
             check(p.units.count { !it.onBoard } <= Catalog.BENCH_SIZE)
             check(p.units.map { it.slot }.distinct().size == p.units.size)
@@ -481,9 +564,12 @@ class GameEngine(private val seed: Int = 1, autoPlay: Boolean = false) {
         }
     }
     fun snapshot() = MatchSnapshot(revision, phase, round,
-        if (phase == Phase.BATTLE) (Catalog.BATTLE_LIMIT - (battles.maxOfOrNull { it.elapsed } ?: 0f)).coerceAtLeast(0f) else timer,
+        if (phase == Phase.BATTLE) battles.filter { it.outcome == null }.maxOfOrNull {
+            ((if (it.speedMultiplier > 1) Catalog.BATTLE_LIMIT + Catalog.OVERTIME_SECONDS
+                else Catalog.BATTLE_LIMIT) - it.wallElapsed).coerceAtLeast(0f)
+        } ?: 0f else timer,
         elapsed, players.map { it.snapshot() }, battles.map { it.snapshot() }, watchedBattle,
-        ranking(), results.toList(), message, paused, autoPlayHuman)
+        ranking(), results.toList(), message, paused, autoPlayHuman, poolRemaining())
     private fun success(text: String): ActionResult { message = text; revision++; return ActionResult(true, text) }
     private fun fail(text: String): ActionResult { message = text; revision++; return ActionResult(false, text) }
 }

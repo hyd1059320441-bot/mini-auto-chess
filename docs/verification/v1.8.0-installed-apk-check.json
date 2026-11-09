@@ -1,0 +1,11 @@
+{
+  "device": "PB331XPGL6040019G",
+  "package": "com.pico.miniautochess",
+  "version_name": "V1.8.0",
+  "version_code": 13,
+  "bytes": 59512593,
+  "sha256": "90dd3dc9a46fd99e4ce270812bdf54d569b253d8b12a9f25871d758bb9db816e",
+  "installed_sha256": "90dd3dc9a46fd99e4ce270812bdf54d569b253d8b12a9f25871d758bb9db816e",
+  "installed_matches": true,
+  "method": "pico-cli files pull base.apk; compare SHA-256"
+}

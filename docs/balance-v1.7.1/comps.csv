@@ -1,0 +1,8 @@
+comp,gold_at_two_star,heroes
+forest_support,36,forest_ranger|moss_guard|forest_blessing|forest_witch|dawn_priest|ember_acolyte|copper_guard
+rune_mage,48,rune_apprentice|rune_archer|rune_sage|rune_sentinel|forest_witch|core_mage|dawn_oracle
+guard5,45,copper_guard|moss_guard|flame_fighter|rune_sentinel|ember_breaker|rune_sage|dawn_archer
+archer_support,42,forest_ranger|rune_archer|dawn_archer|ember_acolyte|dawn_priest|forest_blessing|moss_guard
+ember4,36,ember_acolyte|flame_fighter|core_mage|ember_breaker|rune_sage|rune_apprentice|copper_guard
+dawn4,48,copper_guard|dawn_priest|dawn_archer|dawn_oracle|moss_guard|rune_sage|core_mage
+mixed,36,copper_guard|moss_guard|forest_ranger|rune_archer|ember_acolyte|dawn_oracle|core_mage

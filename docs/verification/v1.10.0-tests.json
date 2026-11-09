@@ -1,0 +1,117 @@
+{
+  "version": "V1.10.0",
+  "tests": 121,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "command": "./gradlew :app:assembleDebug :app:testDebugUnitTest --console=plain",
+  "simulation_matches": 100,
+  "strategy_simulation_matches": 150,
+  "suites": [
+    {
+      "name": "com.pico.miniautochess.rules.BattleEconomyTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.025"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.SimulationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "14.999"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.StreakEconomyTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.004"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.PresentationTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.005"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.GameEngineTest",
+      "tests": "49",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.353"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.ExpansionTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.316"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.FairPreparationTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.008"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMathTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.01"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.BoardLayoutTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.003"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatVisualsTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.003"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.BalanceTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.081"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMovementTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.094"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.StrategySimulationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "18.617"
+    }
+  ]
+}

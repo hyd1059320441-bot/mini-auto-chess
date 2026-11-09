@@ -1,0 +1,44 @@
+{
+  "version": "V1.6.2",
+  "version_code": 10,
+  "sdk": "6.1.9",
+  "device": "PB331XPGL6040019G",
+  "running": true,
+  "pid": 11476,
+  "apk_sha256": "e9fe84fa9d8632210673ff037ade1c2edc649c8e8d124a7e27b35f8522e8821d",
+  "installed_matches": true,
+  "build": "PASS",
+  "source_gate": "PASS",
+  "scene_ready": true,
+  "scene_offset_meters": [
+    0,
+    0,
+    -0.2
+  ],
+  "incremental_forward_meters": 0.1,
+  "all_content": "scenePlacement",
+  "hero_visual_scale": 0.85,
+  "status_label_scale": 1.0,
+  "hud_geometry": "PASS",
+  "board_height_y_meters": 0.265,
+  "board_heights_uniform": true,
+  "shop_odds_depend_on": [
+    "population_level"
+  ],
+  "tests_passed": 87,
+  "simulation_matches": 100,
+  "observed_fatal_exception": false,
+  "observed_fatal_signal": false,
+  "android_runtime_error_records": "",
+  "platform_error_tags_preserved": {
+    "DMABUFHEAPS": 143,
+    "KERNEL  ": 2,
+    "MediaCodec": 20,
+    "o.miniautochess": 22,
+    "SpatialPack": 12
+  },
+  "visual": "UNOBSERVED",
+  "runtime_scope": "installation_liveness_menu_scene_numeric_geometry",
+  "interaction_verification": "user_headset; no Spatial Accessibility on SDK 6.1.9",
+  "charged_model_tasks_this_revision": 0
+}

@@ -1,0 +1,72 @@
+{
+  "version": "V1.7.1",
+  "command": "./gradlew :app:assembleDebug :app:testDebugUnitTest --console=plain",
+  "tests": 95,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "suites": [
+    {
+      "name": "com.pico.miniautochess.rules.BoardLayoutTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.047"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMathTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.025"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMovementTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.097"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.ExpansionTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.601"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.GameEngineTest",
+      "tests": "49",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.094"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.PresentationTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.005"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.SimulationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.68"
+    }
+  ],
+  "human_death": "same_step_FINISHED; mirror_and_real_pair; completed_results_paid_once; unfinished_pair_not_paid; terminal_snapshot_frozen; restart_cleans_match",
+  "previous_regressions": "shop_odds_population_only; drag_sales_and_cancellation; overtime; AI_elimination_three_player_mirror",
+  "simulation_matches": 100,
+  "simulation_report": "simulation-v1.7.1-100.md",
+  "finish_condition_verified": "human_eliminated OR living_players<=1"
+}

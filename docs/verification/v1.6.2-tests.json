@@ -1,0 +1,142 @@
+{
+  "version": "V1.6.2",
+  "command": "./gradlew :app:assembleDebug :app:testDebugUnitTest --console=plain",
+  "tests": 87,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "suites": [
+    {
+      "name": "com.pico.miniautochess.rules.BoardLayoutTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.034"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMathTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.017"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.CombatMovementTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.066"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.ExpansionTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.345"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.GameEngineTest",
+      "tests": "42",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.093"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.PresentationTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.008"
+    },
+    {
+      "name": "com.pico.miniautochess.rules.SimulationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.702"
+    }
+  ],
+  "shop_distributions": [
+    {
+      "level": 3,
+      "samples": 10000,
+      "counts_by_fee": [
+        7563,
+        2437,
+        0
+      ],
+      "target_percent_by_fee": [
+        75,
+        25,
+        0
+      ]
+    },
+    {
+      "level": 4,
+      "samples": 10000,
+      "counts_by_fee": [
+        5639,
+        2900,
+        1461
+      ],
+      "target_percent_by_fee": [
+        55,
+        30,
+        15
+      ]
+    },
+    {
+      "level": 5,
+      "samples": 10000,
+      "counts_by_fee": [
+        4580,
+        3276,
+        2144
+      ],
+      "target_percent_by_fee": [
+        45,
+        33,
+        22
+      ]
+    },
+    {
+      "level": 6,
+      "samples": 10000,
+      "counts_by_fee": [
+        3066,
+        4010,
+        2924
+      ],
+      "target_percent_by_fee": [
+        30,
+        40,
+        30
+      ]
+    },
+    {
+      "level": 7,
+      "samples": 10000,
+      "counts_by_fee": [
+        1611,
+        3078,
+        5311
+      ],
+      "target_percent_by_fee": [
+        16,
+        30,
+        54
+      ]
+    }
+  ],
+  "simulation_matches": 100,
+  "cross_round_contract": "same population, pool and seed: rounds 1–10, 20 consecutive refreshes identical",
+  "simulation_report": "simulation-100.md"
+}

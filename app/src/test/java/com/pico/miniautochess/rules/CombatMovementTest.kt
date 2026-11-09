@@ -7,7 +7,7 @@ import kotlin.math.hypot
 class CombatMovementTest {
     private fun guard(uid: Int, slot: Int) = UnitSnapshot(uid, "moss_guard", 3, slot)
     private fun finish(b: Battle) {
-        repeat(251) {
+        repeat(401) {
             if (b.outcome == null) b.step()
             assertTrue(b.snapshot().fighters.all { it.x.isFinite() && it.y.isFinite() && it.x in 0f..7f && it.y in 0f..7f })
         }

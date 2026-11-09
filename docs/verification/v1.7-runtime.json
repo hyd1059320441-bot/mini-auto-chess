@@ -1,0 +1,85 @@
+{
+  "version": "V1.7.0",
+  "version_code": 11,
+  "sdk": "6.1.9",
+  "device": "PB331XPGL6040019G",
+  "running": true,
+  "pid": 18438,
+  "apk_sha256": "7d61d86e032e7327e7e7a0c44e49913632ee70e6dc2d6908c500e49b1eee4ba2",
+  "installed_matches": true,
+  "build": "PASS",
+  "source_gate": "PASS",
+  "source_gate_advisories": [
+    {
+      "evidence": "import com.pico.spatial.core.container.SpatialViewContent",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 14,
+      "rationale": "The focused source contains containment logic but no visible named owner, epsilon; review whether another selected file supplies that evidence.",
+      "rule": "containment-evidence-incomplete"
+    },
+    {
+      "evidence": "val hpBack: Entity, val manaBack: Entity, val label: Entity, val ring: Entity,",
+      "file": "app/src/main/java/com/pico/miniautochess/content/ChessScene.kt",
+      "line": 95,
+      "rationale": "Foreground-facing details appear in a scene with depth transforms but no visible body/detail depth contract; review whether Z is being used only for front-view visibility.",
+      "rule": "surface-detail-depth-without-body-contract"
+    }
+  ],
+  "scene_ready": true,
+  "scene_offset_meters": [
+    0,
+    0,
+    -0.3
+  ],
+  "incremental_forward_meters": 0.1,
+  "all_content": "scenePlacement",
+  "hero_visual_scale": 0.85,
+  "status_label_scale": 1.0,
+  "hud_geometry": "PASS",
+  "shop_area_separated_from_bench": true,
+  "occupied_slot_drag_targets": 40,
+  "grab_box_meters": [
+    0.21,
+    0.34,
+    0.21
+  ],
+  "status_anchor": "measured_animated_body_bounds",
+  "board_height_y_meters": 0.265,
+  "board_heights_uniform": true,
+  "shop_odds_depend_on": [
+    "population_level"
+  ],
+  "tests_passed": 92,
+  "simulation_matches": 100,
+  "observed_fatal_exception": false,
+  "observed_fatal_signal": false,
+  "android_runtime_error_records": "",
+  "crash_buffer_records": "",
+  "platform_error_tags_preserved": {
+    "libprocessgroup": 1,
+    "o.miniautochess": 25,
+    "ashmem  ": 1,
+    "KERNEL  ": 2,
+    "SimpleTimeTrace": 4,
+    "SPPackGlue": 2,
+    "SPC-mini22-IPCClientService": 22,
+    "SPC-mini22-MetricsManager": 8,
+    "SPC-mini22-SpatialContext": 2,
+    "SPC-mini22-AsyncTaskHandlerRegister": 1,
+    "SPC-mini22-SpatialSession": 4,
+    "SPC-mini22-Global": 1,
+    "SPC-mini22-PerfProfiler": 2,
+    "PxrNotificationClient": 1,
+    "PxrConfigServiceClient": 1,
+    "SpatialPack": 18,
+    "SYS_DEFAULT_LOG": 3,
+    "PXR-HWUI": 1,
+    "SpatialPack_SceneInspector": 1,
+    "DMABUFHEAPS": 150,
+    "MediaCodec": 19
+  },
+  "visual": "UNOBSERVED",
+  "runtime_scope": "installation_liveness_menu_scene_numeric_geometry",
+  "interaction_verification": "user_headset; no Spatial Accessibility on SDK 6.1.9",
+  "charged_model_tasks_this_revision": 0
+}

@@ -1,0 +1,17 @@
+{
+  "tool_name": "accessibility.runtime-audit",
+  "tool_status": "FAILED",
+  "summary": "Accessibility Contract is incomplete:\n- $.unresolved: UNRESOLVED_CANDIDATE: Spatial owner is user-operable or owns Attachment content but has no readable AccessibilityComponent and setAccessibilityActions declaration.\n- $.unresolved: UNRESOLVED_CANDIDATE: Spatial owner is user-operable or owns Attachment content but has no readable AccessibilityComponent and setAccessibilityActions declaration.",
+  "data": null,
+  "errors": [
+    {
+      "code": "USAGE_ERROR",
+      "message": "Accessibility Contract is incomplete:\n- $.unresolved: UNRESOLVED_CANDIDATE: Spatial owner is user-operable or owns Attachment content but has no readable AccessibilityComponent and setAccessibilityActions declaration.\n- $.unresolved: UNRESOLVED_CANDIDATE: Spatial owner is user-operable or owns Attachment content but has no readable AccessibilityComponent and setAccessibilityActions declaration."
+    }
+  ],
+  "resources": [],
+  "meta": {
+    "format": "json",
+    "truncated": false
+  }
+}

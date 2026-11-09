@@ -14,6 +14,8 @@ class GameEngineTest {
         health: Int = 32,
     ) {
         val p = player(game, id)
+        // Controlled ledger fixtures replace this seat's pending AI decisions.
+        (field(game, "aiSteps").get(game) as IntArray)[id] = 4
         field(p, "gold").set(p, gold); field(p, "level").set(p, level)
         field(p, "xp").set(p, xp); field(p, "health").set(p, health)
         (field(p, "units").get(p) as MutableList<UnitSnapshot>).apply { clear(); addAll(units) }
@@ -29,6 +31,13 @@ class GameEngineTest {
     }
     private fun pawn(uid: Int, slot: Int, star: Int = 1, hero: String = "copper_guard") =
         UnitSnapshot(uid, hero, star, slot)
+    private fun finishRound(game: GameEngine) {
+        repeat(401) {
+            if (game.phase != Phase.BATTLE) return
+            game.advance(Catalog.STEP)
+        }
+        fail("Battle failed to resolve after normal time and overtime")
+    }
 
     @Test fun readyAndTimeoutFillOnlyGapsWithoutSpendingOrRearranging() {
         for (timeout in listOf(false, true)) for (onBoard in 0..3) {
@@ -61,17 +70,17 @@ class GameEngineTest {
         assertTrue(game.start().ok)
         val initialPlayers = game.snapshot().players
         assertFalse(game.start().ok)
-        game.advance(700f)
+        game.advance(9000f)
         assertEquals(Phase.FINISHED, game.phase)
         assertTrue(game.start().ok)
         val s = game.snapshot()
         assertEquals(Phase.PREPARATION, s.phase); assertEquals(1, s.round)
         assertEquals(0f, s.elapsed, .001f)
         assertTrue(s.players.all { it.health == 32 && it.wins == 0 && it.eliminatedRound == null })
-        assertEquals(initialPlayers, s.players)
-        assertTrue(s.human.gold in 0..10)
+        assertNotEquals(initialPlayers.map { it.shop }, s.players.map { it.shop })
+        assertTrue(s.players.all { it.gold == 10 && it.xp == 0 && it.units.isEmpty() })
         assertEquals(3, s.human.level)
-        assertTrue(s.human.units.isNotEmpty()) // Initial autoplay immediately manages the new shop.
+        assertTrue(s.human.units.isEmpty()) // Autoplay now waits for the same think delay as AI.
         assertTrue(s.battles.isEmpty())
         game.assertInvariants()
     }
@@ -237,30 +246,28 @@ class GameEngineTest {
         g.advance(1f)
         assertEquals(gold, g.snapshot().human.gold)
     }
-    @Test fun eliminationReturnsPoolAndThreePlayersUsePreviousLockedGhost() {
+    @Test fun eliminationReturnsPoolAndThreePlayersUseCurrentLockedGhost() {
         val g = prepared()
-        fixture(g, 0, health = 1, units = emptyList())
-        fixture(g, 1, units = listOf(pawn(101, 0, 2)))
+        fixture(g, 0, units = listOf(pawn(101, 0, 2)))
+        fixture(g, 1, health = 1, units = emptyList(), shop = listOf("copper_guard", null, null, null, null))
         fixture(g, 2, units = listOf(pawn(102, 1, hero = "forest_ranger")))
         fixture(g, 3, units = listOf(pawn(103, 2, hero = "rune_apprentice")))
-        g.ready(); g.advance(26f)
-        assertNotNull(g.snapshot().human.eliminatedRound)
-        if (g.phase == Phase.PREPARATION) g.ready()
+        g.ready(); finishRound(g)
+        assertTrue(g.snapshot().human.alive)
+        assertNotNull(g.snapshot().players[1].eliminatedRound)
+        assertTrue(g.snapshot().players[1].shop.all { it == null })
+        assertEquals(Phase.TRANSITION, g.phase)
+        g.advance(Catalog.TRANSITION_SECONDS)
+        g.ready()
         val s = g.snapshot()
         assertEquals(Phase.BATTLE, s.phase)
         assertEquals(2, s.battles.size)
         val ghost = s.battles.map { it.right }.single { it.ghost }
-        val original = when (ghost.playerId) {
-            1 -> pawn(101, 0, 2)
-            2 -> pawn(102, 1, hero = "forest_ranger")
-            else -> pawn(103, 2, hero = "rune_apprentice")
-        }
-        assertEquals(original.heroId, ghost.units.single().heroId)
-        assertEquals(original.star, ghost.units.single().star)
-        assertEquals(original.slot, ghost.units.single().slot)
-        assertTrue(ghost.units.single().uid < 0)
-        val ghostFighter = s.battles.single { it.right.ghost }.fighters.single { it.team == 1 }
-        assertEquals(ghostFighter.maxHealth, ghostFighter.health, .001f)
+        val original = s.players.first { it.id == ghost.playerId }.units.filter { it.onBoard }
+        assertEquals(original.map { it.copy(uid = -it.uid) }, ghost.units)
+        assertTrue(ghost.units.all { it.uid < 0 })
+        val ghostFighters = s.battles.single { it.right.ghost }.fighters.filter { it.team == 1 }
+        assertTrue(ghostFighters.all { it.health == it.maxHealth })
         g.assertInvariants()
     }
     @Test fun completelyEqualFinalScoresShareRank() {
@@ -276,9 +283,16 @@ class GameEngineTest {
         assertEquals(BattleOutcome.RIGHT, Battle.compareAtTimeout(1, 1, .1, .2))
         assertEquals(BattleOutcome.DRAW, Battle.compareAtTimeout(1, 1, .5, .5))
         val b = Battle(0, Army(0, listOf(pawn(1, 17))), Army(1, listOf(pawn(2, 17))), limit = .2f)
+        (field(b, "fighters").get(b) as List<*>).forEach { f ->
+            field(f!!, "damage").set(f, 0f); field(f, "spell").set(f, 0f)
+        }
         repeat(10) { b.step() }
+        assertNull(b.outcome)
+        assertEquals(2, b.snapshot().speedMultiplier)
+        repeat(142) { b.step() }
         assertEquals(BattleOutcome.DRAW, b.outcome)
-        assertEquals(.2f, b.elapsed, .001f)
+        assertEquals(15.2f, b.wallElapsed, .003f)
+        assertEquals(30.2f, b.elapsed, .003f)
     }
     @Test fun combatSnapshotIsDetachedAndPreservesPreparationArmy() {
         val units = listOf(pawn(1, 0))
@@ -290,9 +304,9 @@ class GameEngineTest {
         assertTrue(b.snapshot().fighters.any { it.health < it.maxHealth })
         assertEquals(before, before.copy())
     }
-    @Test fun allMutationsRejectBattleAndEliminatedPlayers() {
+    @Test fun battleAllowsEconomyButKeepsBoardArrangementLocked() {
         val g = prepared(); g.ready()
-        assertFalse(g.buy(0, 0).ok); assertFalse(g.refresh(0).ok); assertFalse(g.buyXp(0).ok)
+        assertTrue(g.buy(0, 0).ok); assertTrue(g.refresh(0).ok); assertTrue(g.buyXp(0).ok)
         assertFalse(g.move(0, 1, 0).ok); assertFalse(g.sell(0, 1).ok)
         assertFalse(g.arrange(0).ok)
         assertFalse(g.ready().ok); assertFalse(g.watch(3).ok)
@@ -418,7 +432,7 @@ class GameEngineTest {
         fixture(g, 2, units = listOf(pawn(102, 0)))
         fixture(g, 3, units = listOf(pawn(103, 0)))
         g.ready(); g.advance(.1f)
-        assertEquals(Phase.BATTLE, g.phase)
+        assertEquals(if (!humanWins && health == 1) Phase.FINISHED else Phase.BATTLE, g.phase)
         assertNull(g.snapshot().battles[1].outcome)
         return g
     }
@@ -432,7 +446,7 @@ class GameEngineTest {
         repeat(5) { g.watch(it % 2) }
         g.advance(1f)
         assertEquals(20, g.snapshot().human.gold); assertEquals(1, g.snapshot().human.wins)
-        g.advance(24f)
+        finishRound(g)
         val end = g.snapshot()
         assertEquals(Phase.TRANSITION, end.phase)
         assertEquals(27, end.human.gold); assertEquals(2, end.human.xp)
@@ -457,23 +471,82 @@ class GameEngineTest {
         assertEquals(30, g.snapshot().human.health)
         g.assertInvariants()
     }
-    @Test fun lethalDamageEliminatesAndReturnsPoolImmediatelyWithoutStoppingOtherBattle() {
+    @Test fun lethalHumanDamageImmediatelyFinishesPaysOnceAndFreezesOtherBattle() {
         val g = asymmetricRound(humanWins = false, health = 1)
         val s = g.snapshot()
         assertEquals(0, s.human.health); assertEquals(1, s.human.eliminatedRound)
         assertTrue(s.human.shop.all { it == null }); assertTrue(s.human.units.isEmpty())
         assertTrue(s.message.contains("淘汰"))
+        assertEquals(Phase.FINISHED, s.phase)
+        assertEquals(0f, s.secondsLeft, 0f)
+        assertEquals(3, s.players.count { it.alive })
         g.assertInvariants()
-        val backgroundTime = s.battles[1].elapsed
-        g.advance(1f)
-        assertTrue(g.snapshot().battles[1].elapsed > backgroundTime)
-        g.advance(24f)
-        assertEquals(Phase.TRANSITION, g.phase)
-        assertEquals(25, g.snapshot().human.gold)
-        assertEquals(2, g.snapshot().human.xp)
-        val paid = g.snapshot().results.first { it.playerId == 0 }
+        g.advance(9000f)
+        assertEquals(s, g.snapshot())
+        assertEquals(25, s.human.gold)
+        assertEquals(2, s.human.xp)
+        assertEquals(listOf(0, 1), s.results.map { it.playerId })
+        assertEquals(100, s.players[2].gold); assertEquals(0, s.players[2].xp)
+        assertEquals(100, s.players[3].gold); assertEquals(0, s.players[3].xp)
+        val paid = s.results.first { it.playerId == 0 }
         assertTrue(paid.roundPaid); assertEquals(1, paid.interest)
         assertEquals(1, paid.damage); assertEquals(2, paid.nominalDamage)
+        assertFalse(g.ready().ok); assertFalse(g.buy(0, 0).ok)
+        assertFalse(g.refresh(0).ok); assertFalse(g.buyXp(0).ok)
+        g.assertInvariants()
+    }
+    @Test fun humanDeathAgainstMirrorStopsRealPairWithoutPayingItsDonor() {
+        val g = prepared()
+        fixture(g, 0, health = 1, gold = 19, shop = listOf("copper_guard", null, null, null, null))
+        fixture(g, 1, gold = 19, units = listOf(pawn(101, 0)))
+        fixture(g, 2, gold = 19, units = listOf(pawn(102, 0)))
+        fixture(g, 3)
+        field(player(g, 3), "eliminatedRound").set(player(g, 3), 1)
+        val beforePool = g.poolRemaining()
+        g.ready(); g.advance(.1f)
+        val end = g.snapshot()
+        assertEquals(Phase.FINISHED, end.phase)
+        assertEquals(listOf(0), end.results.map { it.playerId })
+        assertEquals(25, end.human.gold); assertEquals(2, end.human.xp)
+        assertEquals(beforePool.getValue("copper_guard") + 1, end.pool.getValue("copper_guard"))
+        assertEquals(listOf(19, 19), end.players.slice(1..2).map { it.gold })
+        assertTrue(end.players.slice(1..2).all { it.health == 32 && it.xp == 0 && it.wins == 0 })
+        assertNull(end.battles.single { !it.right.ghost }.outcome)
+        g.advance(9000f)
+        assertEquals(end, g.snapshot())
+        g.assertInvariants()
+    }
+    @Test fun humanDeathAfterOtherPairFinishedPaysItsExistingResultsExactlyOnce() {
+        val g = prepared()
+        fixture(g, 0, health = 1, gold = 19, units = listOf(pawn(100, 0)))
+        fixture(g, 1, gold = 19, units = listOf(pawn(101, 0, 3, "rune_sentinel")))
+        fixture(g, 2, gold = 19)
+        fixture(g, 3, gold = 19)
+        g.ready(); g.advance(.1f)
+        assertEquals(Phase.BATTLE, g.phase)
+        assertEquals(setOf(2, 3), g.snapshot().results.map { it.playerId }.toSet())
+        assertTrue(g.snapshot().results.none { it.roundPaid })
+        finishRound(g)
+        val end = g.snapshot()
+        assertEquals(Phase.FINISHED, end.phase)
+        assertEquals(4, end.results.size)
+        assertTrue(end.results.all { it.roundPaid })
+        assertEquals(listOf(25, 25), end.players.slice(2..3).map { it.gold })
+        assertEquals(listOf(2, 2), end.players.slice(2..3).map { it.xp })
+        assertTrue(end.human.units.isEmpty())
+        g.advance(9000f)
+        assertEquals(end, g.snapshot())
+        g.assertInvariants()
+    }
+    @Test fun restartingAfterImmediateHumanDeathResetsRanksPoolResultsAndClock() {
+        val g = asymmetricRound(humanWins = false, health = 1)
+        assertTrue(g.start().ok)
+        val restarted = g.snapshot()
+        assertEquals(Phase.PREPARATION, restarted.phase)
+        assertEquals(1, restarted.round); assertEquals(0f, restarted.elapsed, 0f)
+        assertTrue(restarted.players.all { it.health == 32 && it.eliminatedRound == null && it.wins == 0 })
+        assertTrue(restarted.results.isEmpty()); assertTrue(restarted.battles.isEmpty())
+        assertEquals(5, restarted.human.shop.filterNotNull().size)
         g.assertInvariants()
     }
     @Test fun roundXpPreservesOverflowCapsAtSevenAndIsAwardedOnceOnDraw() {
@@ -494,17 +567,18 @@ class GameEngineTest {
         assertEquals(s.players, g.snapshot().players)
         g.assertInvariants()
     }
-    @Test fun tenthRoundPaysRegularIncomeAndXpAndPublishesFinalPlace() {
+    @Test fun tenthRoundPaysRegularIncomeAndXpAndContinuesWithLivingPlayers() {
         val g = prepared()
         (0..3).forEach { fixture(g, it, gold = 10) }
         field(g, "round").set(g, 10)
         g.ready(); g.advance(.1f)
         val s = g.snapshot()
-        assertEquals(Phase.FINISHED, s.phase)
+        assertEquals(Phase.TRANSITION, s.phase)
         assertTrue(s.players.all { it.gold == 16 && it.xp == 2 })
-        assertTrue(s.message.contains("棋会结束") && s.message.contains("第 1 名"))
-        g.advance(100f)
-        assertEquals(s, g.snapshot())
+        g.advance(Catalog.TRANSITION_SECONDS)
+        assertEquals(11, g.round)
+        assertEquals(Phase.PREPARATION, g.phase)
+        assertEquals(listOf(6, 6, 7, 7, 8), (11..15).map(Catalog::roundDamage))
         g.assertInvariants()
     }
     @Test fun ghostVictoryNeverPaysTheDonorOrMutatesItsOngoingRealBattle() {
@@ -517,17 +591,18 @@ class GameEngineTest {
         g.ready(); g.advance(.1f)
         val s = g.snapshot()
         assertEquals(Phase.BATTLE, s.phase)
-        assertEquals(1, s.battles.single { it.right.ghost }.right.playerId)
+        val donor = s.battles.single { it.right.ghost }.right.playerId
+        assertTrue(donor in 1..2)
         assertEquals(BattleOutcome.RIGHT, s.battles.single { it.right.ghost }.outcome)
         assertNull(s.battles.single { !it.right.ghost }.outcome)
-        assertEquals(19, s.players[1].gold); assertEquals(0, s.players[1].wins)
-        assertEquals(32, s.players[1].health)
+        assertEquals(19, s.players[donor].gold); assertEquals(0, s.players[donor].wins)
+        assertEquals(32, s.players[donor].health)
         assertEquals(listOf(0), s.results.map { it.playerId })
         g.assertInvariants()
-        g.advance(25f)
+        finishRound(g)
         val end = g.snapshot()
         assertEquals(Phase.TRANSITION, end.phase)
-        assertEquals(25, end.players[1].gold); assertEquals(0, end.players[1].wins)
+        assertEquals(25, end.players[donor].gold); assertEquals(0, end.players[donor].wins)
         assertEquals(3, end.results.size)
         assertFalse(end.results.any { it.playerId == 3 })
         g.assertInvariants()
@@ -538,7 +613,7 @@ class GameEngineTest {
             Triple(19, 27, 25), Triple(29, 38, 36), Triple(39, 49, 47),
         )) for (won in listOf(false, true)) {
             val g = asymmetricRound(humanWins = won, gold = gold)
-            g.advance(25f)
+            finishRound(g)
             val s = g.snapshot()
             val paid = s.results.first { it.playerId == 0 }
             assertEquals(if (won) winFinal else lossFinal, s.human.gold)
@@ -574,5 +649,98 @@ class GameEngineTest {
         assertEquals(2, g.snapshot().human.xp); assertEquals(6, g.snapshot().human.xpRemaining)
         fixture(g, level = 7)
         assertEquals(0, g.snapshot().human.xpRemaining); assertEquals(0, g.snapshot().human.xpRequired)
+    }
+    @Test fun dragSaleReturnsExactStarValueAndCopiesOnceFromBenchOrBoard() {
+        for (slot in listOf(-1, 31)) for (star in 1..3) {
+            val g = prepared()
+            fixture(g, gold = 10, units = listOf(pawn(100, slot, star, "rune_sentinel")))
+            val drag = DragPlacement(g)
+            val before = g.snapshot()
+            assertTrue(drag.begin(100))
+            drag.delta(.1f, .5f)
+            assertEquals(before, g.snapshot())
+            assertTrue(drag.release(sell = true).ok)
+            assertTrue(g.snapshot().human.units.isEmpty())
+            assertEquals(10 + 3 * Catalog.copies(star), g.snapshot().human.gold)
+            assertEquals(before.pool.getValue("rune_sentinel") + Catalog.copies(star),
+                g.poolRemaining().getValue("rune_sentinel"))
+            val sold = g.snapshot()
+            assertFalse(drag.release(sell = true).ok)
+            assertEquals(sold, g.snapshot())
+            g.assertInvariants()
+        }
+    }
+    @Test fun cancellationAndRuleChangesPreventAnArmedDragSale() {
+        for (interrupt in 0..4) {
+            val g = prepared()
+            fixture(g, gold = 10, units = listOf(pawn(100, -1)))
+            val drag = DragPlacement(g)
+            assertTrue(drag.begin(100)); drag.delta(0f, .5f)
+            when (interrupt) {
+                0 -> drag.cancel()
+                1 -> g.setPaused(true)
+                2 -> g.ready()
+                3 -> g.setAutoPlay(true)
+                4 -> g.move(0, 100, 31)
+            }
+            val before = g.snapshot()
+            assertFalse(drag.release(sell = true).ok)
+            assertEquals(before, g.snapshot())
+        }
+    }
+    @Test fun threeLivingPlayersContinuePastRoundTenAndRotateTheMirrorSeat() {
+        val g = prepared()
+        (0..3).forEach { fixture(g, it, gold = 10) }
+        field(player(g, 3), "eliminatedRound").set(player(g, 3), 1)
+        field(g, "round").set(g, 10)
+        val solos = mutableSetOf<Int>()
+        repeat(3) {
+            (0..2).forEach { fixture(g, it, gold = 10) }
+            g.ready()
+            val s = g.snapshot()
+            assertEquals(2, s.battles.size)
+            val mirror = s.battles.single { it.right.ghost }
+            solos.add(mirror.left.playerId)
+            assertNotEquals(mirror.left.playerId, mirror.right.playerId)
+            assertEquals(setOf(0, 1, 2), s.battles.flatMap { listOf(it.left, it.right) }
+                .filter { !it.ghost }.map { it.playerId }.toSet())
+            finishRound(g)
+            assertEquals(Phase.TRANSITION, g.phase)
+            assertEquals(3, g.snapshot().results.size)
+            assertTrue(g.snapshot().results.all { it.roundPaid })
+            g.advance(Catalog.TRANSITION_SECONDS)
+        }
+        assertEquals(setOf(0, 1, 2), solos)
+        assertEquals(13, g.round)
+        g.assertInvariants()
+    }
+    @Test fun overtimeAdvancesTwiceAsFastAndPauseAndSpectatingDoNotPayAgain() {
+        val g = asymmetricRound(humanWins = true)
+        // Ensure the concurrent pair stays alive through the acceleration boundary.
+        val pair = (field(g, "battles").get(g) as List<*>)[1]!!
+        (field(pair, "fighters").get(pair) as List<*>).forEach { f ->
+            field(f!!, "damage").set(f, 0f); field(f, "spell").set(f, 0f)
+        }
+        g.advance(24.9f)
+        val normal = g.snapshot()
+        assertEquals(Phase.BATTLE, normal.phase)
+        assertEquals(2, normal.battles[1].speedMultiplier)
+        assertEquals(25f, normal.battles[1].wallElapsed, .003f)
+        assertEquals(15f, normal.secondsLeft, .003f)
+        val paidImmediately = normal.human.gold
+        g.setPaused(true); g.advance(100f)
+        assertEquals(normal.battles, g.snapshot().battles)
+        repeat(4) { g.watch(it % 2) }
+        assertEquals(normal.battles, g.snapshot().battles)
+        assertEquals(paidImmediately, g.snapshot().human.gold)
+        g.setPaused(false); g.advance(1f)
+        val accelerated = g.snapshot()
+        assertEquals(2f, accelerated.battles[1].elapsed - normal.battles[1].elapsed, .003f)
+        assertEquals(1f, accelerated.battles[1].wallElapsed - normal.battles[1].wallElapsed, .003f)
+        assertEquals(paidImmediately, accelerated.human.gold)
+        finishRound(g)
+        assertEquals(27, g.snapshot().human.gold)
+        assertEquals(1, g.snapshot().human.wins)
+        assertTrue(g.snapshot().results.all { it.roundPaid })
     }
 }

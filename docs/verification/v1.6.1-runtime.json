@@ -1,0 +1,19 @@
+{
+  "version": "V1.6.1",
+  "version_code": 9,
+  "device": "PB331XPGL6040019G",
+  "running": true,
+  "apk_sha256": "02809d452e11a6745bc4bcf55ad089661b3185b04ade28a7b14031cdf034f102",
+  "installed_matches": true,
+  "build": "PASS",
+  "source_gate": "PASS",
+  "scene_offset_meters": [
+    0,
+    0,
+    -0.1
+  ],
+  "all_content": "scenePlacement",
+  "hud_geometry": "PASS",
+  "visual": "UNOBSERVED",
+  "scope": "position_adjustment_startup_only"
+}

@@ -1,0 +1,209 @@
+{
+  "all": {
+    "forest_support": {
+      "games": 72,
+      "wins": 39,
+      "losses": 33,
+      "draws": 0,
+      "score_pct": 54.17
+    },
+    "rune_mage": {
+      "games": 72,
+      "wins": 58,
+      "losses": 14,
+      "draws": 0,
+      "score_pct": 80.56
+    },
+    "guard5": {
+      "games": 72,
+      "wins": 30,
+      "losses": 42,
+      "draws": 0,
+      "score_pct": 41.67
+    },
+    "archer_support": {
+      "games": 72,
+      "wins": 22,
+      "losses": 50,
+      "draws": 0,
+      "score_pct": 30.56
+    },
+    "ember4": {
+      "games": 72,
+      "wins": 51,
+      "losses": 21,
+      "draws": 0,
+      "score_pct": 70.83
+    },
+    "dawn4": {
+      "games": 72,
+      "wins": 39,
+      "losses": 33,
+      "draws": 0,
+      "score_pct": 54.17
+    },
+    "mixed": {
+      "games": 72,
+      "wins": 13,
+      "losses": 59,
+      "draws": 0,
+      "score_pct": 18.06
+    }
+  },
+  "36": {
+    "forest_support": {
+      "games": 24,
+      "wins": 13,
+      "losses": 11,
+      "draws": 0,
+      "score_pct": 54.17
+    },
+    "rune_mage": {
+      "games": 24,
+      "wins": 15,
+      "losses": 9,
+      "draws": 0,
+      "score_pct": 62.5
+    },
+    "guard5": {
+      "games": 24,
+      "wins": 14,
+      "losses": 10,
+      "draws": 0,
+      "score_pct": 58.33
+    },
+    "archer_support": {
+      "games": 24,
+      "wins": 5,
+      "losses": 19,
+      "draws": 0,
+      "score_pct": 20.83
+    },
+    "ember4": {
+      "games": 24,
+      "wins": 18,
+      "losses": 6,
+      "draws": 0,
+      "score_pct": 75.0
+    },
+    "dawn4": {
+      "games": 24,
+      "wins": 14,
+      "losses": 10,
+      "draws": 0,
+      "score_pct": 58.33
+    },
+    "mixed": {
+      "games": 24,
+      "wins": 5,
+      "losses": 19,
+      "draws": 0,
+      "score_pct": 20.83
+    }
+  },
+  "48": {
+    "forest_support": {
+      "games": 24,
+      "wins": 12,
+      "losses": 12,
+      "draws": 0,
+      "score_pct": 50.0
+    },
+    "rune_mage": {
+      "games": 24,
+      "wins": 23,
+      "losses": 1,
+      "draws": 0,
+      "score_pct": 95.83
+    },
+    "guard5": {
+      "games": 24,
+      "wins": 10,
+      "losses": 14,
+      "draws": 0,
+      "score_pct": 41.67
+    },
+    "archer_support": {
+      "games": 24,
+      "wins": 2,
+      "losses": 22,
+      "draws": 0,
+      "score_pct": 8.33
+    },
+    "ember4": {
+      "games": 24,
+      "wins": 20,
+      "losses": 4,
+      "draws": 0,
+      "score_pct": 83.33
+    },
+    "dawn4": {
+      "games": 24,
+      "wins": 14,
+      "losses": 10,
+      "draws": 0,
+      "score_pct": 58.33
+    },
+    "mixed": {
+      "games": 24,
+      "wins": 4,
+      "losses": 20,
+      "draws": 0,
+      "score_pct": 16.67
+    }
+  },
+  "60": {
+    "forest_support": {
+      "games": 24,
+      "wins": 14,
+      "losses": 10,
+      "draws": 0,
+      "score_pct": 58.33
+    },
+    "rune_mage": {
+      "games": 24,
+      "wins": 20,
+      "losses": 4,
+      "draws": 0,
+      "score_pct": 83.33
+    },
+    "guard5": {
+      "games": 24,
+      "wins": 6,
+      "losses": 18,
+      "draws": 0,
+      "score_pct": 25.0
+    },
+    "archer_support": {
+      "games": 24,
+      "wins": 15,
+      "losses": 9,
+      "draws": 0,
+      "score_pct": 62.5
+    },
+    "ember4": {
+      "games": 24,
+      "wins": 13,
+      "losses": 11,
+      "draws": 0,
+      "score_pct": 54.17
+    },
+    "dawn4": {
+      "games": 24,
+      "wins": 11,
+      "losses": 13,
+      "draws": 0,
+      "score_pct": 45.83
+    },
+    "mixed": {
+      "games": 24,
+      "wins": 4,
+      "losses": 20,
+      "draws": 0,
+      "score_pct": 16.67
+    }
+  },
+  "games": 504,
+  "timeout_count": 106,
+  "timeout_pct": 21.03
+}

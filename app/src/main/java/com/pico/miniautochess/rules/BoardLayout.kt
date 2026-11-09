@@ -11,6 +11,10 @@ object BoardLayout {
     val halfColumns get() = (Catalog.BOARD_COLS - 1) / 2f
     val halfRows get() = (Catalog.BATTLE_ROWS - 1) / 2f
     data class Point(val x: Float, val z: Float)
+    data class DropRegion(val minX: Float, val maxX: Float, val minZ: Float, val maxZ: Float) {
+        fun contains(point: Point) = point.x.isFinite() && point.z.isFinite() &&
+            point.x in minX..maxX && point.z in minZ..maxZ
+    }
 
     fun position(slot: Int): Point {
         require(slot in 0 until Catalog.BOARD_SIZE || slot in -Catalog.BENCH_SIZE..-1)
@@ -51,18 +55,17 @@ class DragPlacement(private val engine: GameEngine) {
         private set
     private var sourceSlot: Int? = null
 
-    private fun allowed() = engine.phase == Phase.PREPARATION && !engine.paused &&
-        !engine.autoPlayHuman && engine.snapshot().human.alive
+    private fun allowed(unitId: Int) = !engine.autoPlayHuman && engine.canEditUnit(0, unitId)
     fun begin(unitId: Int): Boolean {
         cancel()
-        if (!allowed()) return false
+        if (!allowed(unitId)) return false
         val unit = engine.snapshot().human.units.firstOrNull { it.uid == unitId } ?: return false
         uid = unitId; sourceSlot = unit.slot; point = BoardLayout.position(unit.slot)
         return true
     }
     fun validate(): Boolean {
         val id = uid ?: return false
-        if (!allowed() || engine.snapshot().human.units.none { it.uid == id && it.slot == sourceSlot }) {
+        if (!allowed(id) || engine.snapshot().human.units.none { it.uid == id && it.slot == sourceSlot }) {
             cancel(); return false
         }
         return true
@@ -72,11 +75,12 @@ class DragPlacement(private val engine: GameEngine) {
         if (!x.isFinite() || !z.isFinite()) { cancel(); return }
         point = point!!.let { BoardLayout.Point(it.x + x, it.z + z) }
     }
-    fun release(): ActionResult {
+    fun release(sell: Boolean = false): ActionResult {
         if (!validate()) return ActionResult(false, "拖动已取消，棋子保留原位")
         val id = uid!!
         val slot = point!!.let { BoardLayout.slotAt(it.x, it.z) }
         cancel()
+        if (sell) return engine.sell(0, id)
         if (slot == null) return ActionResult(false, "落点不在己方棋格或备战席，已回原位")
         val result = engine.move(0, id, slot)
         val location = if (slot >= 0) "己方第 ${slot / Catalog.BOARD_COLS + 1} 排、第 ${slot % Catalog.BOARD_COLS + 1} 格"

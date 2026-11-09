@@ -1,0 +1,125 @@
+{
+  "sample_rate": 24000,
+  "channels": 1,
+  "unique_skills": 16,
+  "music_bpm": 108,
+  "music_bars": 32,
+  "loop_seam": 0.00019599408056407246,
+  "files": {
+    "cast": {
+      "seconds": 0.25,
+      "peak": 0.23052978515625,
+      "sha256": "6c985a5da59a7d69c8d15fe63e2aba88ebe5f19828085a0284c941d15490e672"
+    },
+    "fall": {
+      "seconds": 0.25,
+      "peak": 0.210540771484375,
+      "sha256": "d6f89160ee425ea0c7557746085107836d00fb101c492d1580498176e4c65a7d"
+    },
+    "garden_music": {
+      "seconds": 71.111125,
+      "peak": 0.12652587890625,
+      "sha256": "8747bab446dbf8b2aab770205b356b507743bbcd214ce65bfc2f01ac8b02fd3c"
+    },
+    "heal": {
+      "seconds": 0.32,
+      "peak": 0.239837646484375,
+      "sha256": "4b2776ce0db49777023b7f4f27054c8eaa65857484e6462ca82ba48972fc9817"
+    },
+    "hit": {
+      "seconds": 0.13,
+      "peak": 0.176788330078125,
+      "sha256": "127a4080d5411f8fd71b21b93df341a71abaf9503aedee7d676dc4c1f5ce723e"
+    },
+    "magic_attack": {
+      "seconds": 0.18,
+      "peak": 0.23016357421875,
+      "sha256": "f590471108650f542e027377f28d09985b4470bafc75b7e974623c4c58c0d02b"
+    },
+    "shot": {
+      "seconds": 0.15,
+      "peak": 0.207550048828125,
+      "sha256": "4890259d44d182e88fbf3993c710459af8d943f06ffc940e4500013328757897"
+    },
+    "skill_copper_guard": {
+      "seconds": 0.58,
+      "peak": 0.20440673828125,
+      "sha256": "a2d666143939c9aa1fab3cd924cbf51b2bdf9ebacc38150a781ee78e4f0af14c"
+    },
+    "skill_core_mage": {
+      "seconds": 0.79,
+      "peak": 0.212371826171875,
+      "sha256": "10091bf3e03787bc1c1afde7ac38dcfaa7eaa581b6504f7661067cfc5991d543"
+    },
+    "skill_dawn_archer": {
+      "seconds": 0.58,
+      "peak": 0.17181396484375,
+      "sha256": "2364a41e5d99f119c0f47a1341ba761b2c5b24d53743e6299d0a72981606a940"
+    },
+    "skill_dawn_oracle": {
+      "seconds": 0.58,
+      "peak": 0.29351806640625,
+      "sha256": "10149afe2610b3ffce2ec5e89106a1be0e099d785b21dc5bbdb7024fc7846ca1"
+    },
+    "skill_dawn_priest": {
+      "seconds": 0.58,
+      "peak": 0.2864990234375,
+      "sha256": "58d14f63ec99fc31fbe174ecc2c76cd9ee42bef7c1a09b0861c5fbd948373e3d"
+    },
+    "skill_ember_acolyte": {
+      "seconds": 0.79,
+      "peak": 0.264007568359375,
+      "sha256": "6fd2d90d631b8514f1ab62544bf384ca67cc338c4935664600992ced57863029"
+    },
+    "skill_ember_breaker": {
+      "seconds": 0.79,
+      "peak": 0.150238037109375,
+      "sha256": "40a26831546da6b91182eae14ac844771a7fcd198daa960ecacad547cda32281"
+    },
+    "skill_flame_fighter": {
+      "seconds": 0.79,
+      "peak": 0.23358154296875,
+      "sha256": "f9469d3189deaa063fe475983867e150570dc6c8ee9218362668ab2a0259aa61"
+    },
+    "skill_forest_blessing": {
+      "seconds": 0.65,
+      "peak": 0.283294677734375,
+      "sha256": "b017ee78970fbffa937dd1d011fe104333ca897b3c88d8e4a5fbdf297f4a9da5"
+    },
+    "skill_forest_ranger": {
+      "seconds": 0.65,
+      "peak": 0.155670166015625,
+      "sha256": "41b820acd86a3bbf849d5aee048d037a0b09881dfcf2668ab0ec8f79661bd833"
+    },
+    "skill_forest_witch": {
+      "seconds": 0.65,
+      "peak": 0.210784912109375,
+      "sha256": "b523366d8bf394dbd7b7a231b3d6688b9bf194e35d4759e9bf641075a314053e"
+    },
+    "skill_moss_guard": {
+      "seconds": 0.65,
+      "peak": 0.22833251953125,
+      "sha256": "b30f0d437b595ac2e52de451716b564ca56406c3e03824bc1333087511e1b961"
+    },
+    "skill_rune_apprentice": {
+      "seconds": 0.72,
+      "peak": 0.273590087890625,
+      "sha256": "7aa6783cb48b4a3c4374a857a15e8ac836439b8eba8bf626f86f4fb9a7cc4341"
+    },
+    "skill_rune_archer": {
+      "seconds": 0.72,
+      "peak": 0.14300537109375,
+      "sha256": "328cd090949feb06d7f7e2a157b5fd607b1fbc0bb2f8fc1368931bea362197bf"
+    },
+    "skill_rune_sage": {
+      "seconds": 0.72,
+      "peak": 0.276275634765625,
+      "sha256": "45664bde53dad53f8a3f23870aa7ee62d6684456259845910b144982de3663df"
+    },
+    "skill_rune_sentinel": {
+      "seconds": 0.72,
+      "peak": 0.28704833984375,
+      "sha256": "e6adc92a513bb122ee91fa77c61628a866a3f78d3edea459697c1926f5fc34b9"
+    }
+  }
+}

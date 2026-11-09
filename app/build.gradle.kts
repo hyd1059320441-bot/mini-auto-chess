@@ -12,8 +12,8 @@ android {
         applicationId = "com.pico.miniautochess"
         minSdk = 35
         targetSdk = 35
-        versionCode = 6
-        versionName = "V1.4.0"
+        versionCode = 15
+        versionName = "V1.10.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ndk { abiFilters.add("arm64-v8a") }

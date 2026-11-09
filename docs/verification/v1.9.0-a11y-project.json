@@ -1,0 +1,57 @@
+{
+  "tool_name": "accessibility.project-audit",
+  "tool_status": "FAILED",
+  "summary": "Project A11Y audit found 2 error(s), 0 warning(s), and 0 info finding(s).",
+  "data": {
+    "projectRoot": "/Users/bytedance/Documents/ai/mini-auto-chess",
+    "passed": false,
+    "requiresRuntimeAudit": true,
+    "inventory": {
+      "candidateCount": 2,
+      "attachments": 2,
+      "entities": 0,
+      "unresolvedCount": 2,
+      "unresolvedLabels": 2,
+      "unsupportedFileCount": 0
+    },
+    "coverage": {
+      "candidates": 2,
+      "contracted": 0,
+      "completedByContract": 0,
+      "excluded": 0,
+      "required": 0,
+      "unresolved": 2
+    },
+    "counts": {
+      "error": 2,
+      "warning": 0,
+      "info": 0
+    },
+    "findings": [
+      {
+        "code": "UNRESOLVED_CANDIDATE",
+        "severity": "error",
+        "componentId": "attachment:13ddfa2149ee7d0a",
+        "file": "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+        "line": 94,
+        "message": "Spatial owner is user-operable or owns Attachment content but has no readable AccessibilityComponent and setAccessibilityActions declaration.",
+        "recommendation": "Use a literal SDK declaration, complete this Spatial owner in the Contract, or obtain an approved exclusion."
+      },
+      {
+        "code": "UNRESOLVED_CANDIDATE",
+        "severity": "error",
+        "componentId": "attachment:213b4b699c039ec2",
+        "file": "app/src/main/java/com/pico/miniautochess/content/HomeStage.kt",
+        "line": 97,
+        "message": "Spatial owner is user-operable or owns Attachment content but has no readable AccessibilityComponent and setAccessibilityActions declaration.",
+        "recommendation": "Use a literal SDK declaration, complete this Spatial owner in the Contract, or obtain an approved exclusion."
+      }
+    ]
+  },
+  "errors": [],
+  "resources": [],
+  "meta": {
+    "format": "json",
+    "truncated": false
+  }
+}
